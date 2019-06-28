@@ -3,21 +3,17 @@ const defaultState = {
 }
 
 function reducer(state = defaultState, action){
+  console.log('payload',action.payload);
+  
   switch(action.type){
-    case "LOGIN":{
+    case "SET_LOGIN":{
       return{
         ...state,
-        isLogin: true
-      }
-    }
-    case "LOGOUT":{
-      return {
-        ...state,
-        isLogin: false
+        isLogin: action.payload
       }
     }
     default:
-      break;
+      return state;
   }
 }
 
