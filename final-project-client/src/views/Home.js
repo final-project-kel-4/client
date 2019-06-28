@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Navbar from '../components/Navbar'
 import JobLinkForm from "../components/JobLinkForm"
 import HomeJobCard from '../components/HomeJobCard'
+import { connect } from 'react-redux'
 
 export default function Home() {
   const [jobData, setJobData] = useState([
@@ -63,3 +64,11 @@ export default function Home() {
     </div>
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    statusLogin: state.isLogin
+  }
+}
+
+export default connect(mapStateToProps)(Home)

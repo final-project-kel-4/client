@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { login } from '../store/action'
+import { setLogin } from '../store/action'
 import LoginForm from '../components/LoginForm'
 import "../css/Login.css"
 
@@ -39,7 +39,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  login
+  setLogin
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

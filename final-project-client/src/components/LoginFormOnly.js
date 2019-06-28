@@ -1,7 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { FiMail, FiLock } from "react-icons/fi";
 import styled, { keyframes } from "styled-components";
-import { slideOutLeft, slideInLeft } from "react-animations"
+import { slideOutLeft, slideInLeft } from "react-animations";
+import {withRouter} from 'react-router-dom';
+import axios from 'axios';
+import swal from 'sweetalert';
+import {connect} from 'react-redux';
+import { setLogin } from '../store/action';
+
 const slideOutAnimation = keyframes`${slideOutLeft}`;
 const slideLeftAnimation = keyframes`${slideInLeft}`;
 const SlideInLeft = styled.div`
@@ -11,7 +17,9 @@ const SlideOutLeft = styled.div`
   animation: 0.5s ${slideOutAnimation}
 `
 
-export default function LoginFormOnly(props) {
+function LoginFormOnly(props) {
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
   const { setIsRegistring } = props.registring;
   const {isNavigatingToRegister, setIsNavigatingToRegister} = props.navigations
   const navigator = e => {
@@ -26,9 +34,36 @@ export default function LoginFormOnly(props) {
       300
     )
   };
+
+  function reset(){
+    setEmail('')
+    setPassword('')
+  }
+
+  function login(e){
+    e.preventDefault()
+    
+    if(email&&password){
+      axios.post(`http://localhost:3000/user/signin`, {email,password})
+      .then(({data})=>{
+        localStorage.setItem('token', data.token)
+        swal('Welcome Back ','','success')
+        props.setLogin(true)
+        props.history.push("/");
+        reset()
+      })
+      .catch((err)=>{
+        console.log(err);
+        swal('Please try again','','warning')
+      })
+    }else{
+      swal('Please complete the form','','warning')
+    }
+  }
+
   return (
     <>
-      <form>
+      <form onSubmit={login}>
         {!isNavigatingToRegister ?  <SlideInLeft>
           <div
             style={{
@@ -59,6 +94,8 @@ export default function LoginFormOnly(props) {
                   style={{
                     width: "250px"
                   }}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -90,6 +127,8 @@ export default function LoginFormOnly(props) {
                   style={{
                     width: "250px"
                   }}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -125,6 +164,8 @@ export default function LoginFormOnly(props) {
                   style={{
                     width: "250px"
                   }}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -156,6 +197,8 @@ export default function LoginFormOnly(props) {
                   style={{
                     width: "250px"
                   }}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -191,3 +234,9 @@ export default function LoginFormOnly(props) {
     </>
   );
 }
+
+const mapDispatchToProps = {
+  setLogin,
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(LoginFormOnly))

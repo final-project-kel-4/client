@@ -1,5 +1,6 @@
-export function login(){
+export function setLogin(payload){
   return {
-    type: "LOGIN"
+    type: 'SET_LOGIN',
+    payload
   }
 }

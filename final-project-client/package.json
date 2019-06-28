@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-animations": "^1.0.0",
@@ -14,7 +15,8 @@
     "react-scripts": "3.0.1",
     "react-spinners-kit": "^1.9.0",
     "redux": "^4.0.1",
-    "styled-components": "^5.0.0-beta.6"
+    "styled-components": "^5.0.0-beta.6",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
