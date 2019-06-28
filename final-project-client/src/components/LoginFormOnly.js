@@ -174,7 +174,7 @@ export default function LoginFormOnly(props) {
                 fontSize: "17px"
               }}
             >
-              Login
+              Login Now!
             </button>
             <button
               className="btn btn-light px-4"
