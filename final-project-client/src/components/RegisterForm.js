@@ -293,7 +293,7 @@ export default function RegisterForm(props) {
                 fontSize: "17px"
               }}
             >
-              Register
+              Register Now!
             </button>
           </div>
         </div>
