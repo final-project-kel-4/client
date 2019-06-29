@@ -1,5 +1,5 @@
 const defaultState = {
-  isLogin: false
+  isLogin: !!localStorage.getItem("token") 
 }
 
 function reducer(state = defaultState, action){

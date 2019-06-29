@@ -43,9 +43,10 @@ export default function JobLinkForm(props) {
         </div>
         <div className="d-flex justify-content-center">
           <button
-            className="btn btn-primary"
+            className="btn btn-secondary"
             style={{
-              fontSize: "20px"
+              fontSize: "20px",
+              backgroundColor: '#143D5C'
             }}
             type="submit"
           >

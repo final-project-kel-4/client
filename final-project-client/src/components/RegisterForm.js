@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import styled, { keyframes } from "styled-components";
 import { slideInRight, slideOutRight } from "react-animations";
-import axios from 'axios';
-import swal from 'sweetalert';
+import axios from "axios";
+import swal from "sweetalert";
 
 const slideRightAnimation = keyframes`${slideInRight}`;
 const slideOutRightAnimation = keyframes`${slideOutRight}`;
@@ -15,13 +15,13 @@ const SlideOutRight = styled.div`
 `;
 
 export default function RegisterForm(props) {
-  const [ name, setName ] = useState('')
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { setIsRegistring } = props.registring;
   const { isNavigatingToLogin, setIsNavigatingToLogin } = props.navigations;
   const navigator = e => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setIsNavigatingToLogin(true);
     setTimeout(
       function() {
@@ -32,35 +32,38 @@ export default function RegisterForm(props) {
     );
   };
 
-  function reset(){
-    setName('')
-    setEmail('')
-    setPassword('')
+  function reset() {
+    setName("");
+    setEmail("");
+    setPassword("");
   }
 
-  function register(e){
-    e.preventDefault()
-    
-    if(name&&email&&password){
-      axios.post(`http://localhost:3000/user/signup`, {name,email,password})
-      .then(()=>{
-        swal('Signup success','','success')
-        reset()
-        navigator()
-      })
-      .catch((err)=>{
-        console.log(err);
-        swal('Please try again','','warning')
-      })
-    }else{
-      swal('Please complete the form','','warning')
+  function register(e) {
+    if (e) {
+      e.preventDefault();
+    }
+
+    if (name && email && password) {
+      axios
+        .post(`http://localhost:3000/user/signup`, { name, email, password })
+        .then(() => {
+          swal("Signup success", "Now you may log in", "success");
+          reset();
+          navigator();
+        })
+        .catch(err => {
+          console.log(err);
+          swal("Please try again", "", "warning");
+        });
+    } else {
+      swal("Please complete the form", "", "warning");
     }
   }
 
   return (
     <>
-      <form onSubmit={register}>
-        {!isNavigatingToLogin ? (
+      {!isNavigatingToLogin ? (
+        <form onSubmit={register}>
           <SlideInRight>
             <div
               style={{
@@ -166,7 +169,36 @@ export default function RegisterForm(props) {
               </div>
             </div>
           </SlideInRight>
-        ) : (
+          <div
+            className="row pt-4"
+            style={{
+              marginBottom: "20px"
+            }}
+          >
+            <div className="col d-flex justify-content-around">
+              <button
+                className="btn btn-primary px-4"
+                type="submit"
+                style={{
+                  fontSize: "17px"
+                }}
+              >
+                Register Now!
+              </button>
+              <button
+                className="btn btn-light px-4"
+                style={{
+                  fontSize: "17px"
+                }}
+                onClick={navigator}
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
+      ) : (
+        <>
           <SlideOutRight>
             <div
               style={{
@@ -272,32 +304,35 @@ export default function RegisterForm(props) {
               </div>
             </div>
           </SlideOutRight>
-        )}
-
-        <div className="row pt-4" style={{
-          marginBottom: "20px"
-        }}>
-          <div className="col d-flex justify-content-around">
-            <button
-              className="btn btn-light px-4"
-              style={{
-                fontSize: "17px"
-              }}
-              onClick={navigator}
-            >
-              Login
-            </button>
-            <button
-              className="btn btn-primary px-4"
-              style={{
-                fontSize: "17px"
-              }}
-            >
-              Register Now!
-            </button>
+          <div
+            className="row pt-4"
+            style={{
+              marginBottom: "20px"
+            }}
+          >
+            <div className="col d-flex justify-content-around">
+              <button
+                className="btn btn-primary px-4"
+                type="submit"
+                style={{
+                  fontSize: "17px"
+                }}
+              >
+                Register Now!
+              </button>
+              <button
+                className="btn btn-light px-4"
+                style={{
+                  fontSize: "17px"
+                }}
+                onClick={navigator}
+              >
+                Login
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </>
+      )}
     </>
   );
 }

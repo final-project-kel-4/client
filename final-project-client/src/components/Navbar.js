@@ -4,12 +4,18 @@ export default function Navbar() {
   return (
     <>
      <nav className="navbar" style={{
-       backgroundColor: "#EFF2F5"
+       backgroundColor: "#EDF5F7"
      }}>
       <a className="navbar-brand mr-auto" href="#" style={{
         color: "black"
-      }}>HR</a>
-      <button className="btn btn-outline-info">Log Out</button>
+      }}><img src="https://i.imgur.com/UEh1mIz.png" style={{
+        width: "100px",
+        borderRadius: "4px"
+      }}/></a>
+      <button className="btn btn-outline-info" style={{
+        backgroundColor: "#143D5C",
+        color: "white"
+      }}>Log Out</button>
      </nav>
     </>
   )
