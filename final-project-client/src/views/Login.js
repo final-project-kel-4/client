@@ -19,49 +19,54 @@ function Login(props) {
       {statusLogin ? (
         <Redirect to="/" />
       ) : (
-        <div
-          className="container"
-          
-        >
-          <div className="row">
-            <div
-              className="col col-md-5"
-              style={{
-                paddingTop: "15vh"
-              }}
-            >
-              <FadeIn className="row d-flex justify-content-center mb-3">
-                <img src="https://i.imgur.com/3msrPaR.png" alt="Not found" style={{
-                  width: "150px",
-                  borderRadius: "100px"
-                }}/>
-              </FadeIn>
-              <FadeIn
-                className="row d-flex justify-content-center flex-column"
+        <div style={{
+          height: "100vh",
+          backgroundColor: "white"
+        }}>
+          <div
+            className="container"
+          >
+            <div className="row">
+              <div
+                className="col col-md-5"
                 style={{
-                  marginBottom: "4vh"
+                  paddingTop: "15vh"
                 }}
               >
-                <h2 className="text-center">Welcome To matchIn</h2>
-                <h6 className="text-center">Resourcing human, now easier.</h6>
-              </FadeIn>
-              <div className="row d-flex justify-content-center">
-                <LoginForm />
-              </div>
+                <FadeIn className="row d-flex justify-content-center mb-3">
+                  <img src="https://i.imgur.com/f1Ir6K0.png" alt="Not found" style={{
+                    width: "150px",
+                    borderRadius: "50px"
+                  }}/>
+                </FadeIn>
+                <FadeIn
+                  className="row d-flex justify-content-center flex-column"
+                  style={{
+                    marginBottom: "4vh"
+                  }}
+                >
+                  <h2 className="text-center">Welcome To matchIn</h2>
+                  <h6 className="text-center">Resourcing human, now easier.</h6>
+                </FadeIn>
+                <div className="row d-flex justify-content-center">
+                  <LoginForm />
+                </div>
 
+              </div>
+              <FadeIn className="col col-md-6">
+                <img
+                  src="https://i.imgur.com/HrFaV3Q.jpg"
+                  alt={<h1>image not found</h1>}
+                  style={{
+                    height: "720px",
+                    width: "720px",
+                    paddingBottom: "50px"
+                  }}
+                />
+              </FadeIn>
             </div>
-            <FadeIn className="col col-md-6">
-              <img
-                src="https://i.imgur.com/HrFaV3Q.jpg"
-                alt={<h1>image not found</h1>}
-                style={{
-                  height: "720px",
-                  width: "720px",
-                  paddingBottom: "50px"
-                }}
-              />
-            </FadeIn>
           </div>
+
         </div>
       )}
     </>

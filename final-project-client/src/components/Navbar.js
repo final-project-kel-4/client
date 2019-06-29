@@ -23,9 +23,10 @@ function Navbar(props) {
      }}>
       <a className="navbar-brand mr-auto" href="/" style={{
         color: "black"
-      }}><img src="https://i.imgur.com/UEh1mIz.png" alt="Not found"style={{
+      }}><img src="https://i.imgur.com/la9GkA9.png" alt="Not found"style={{
         width: "100px",
-        borderRadius: "4px"
+        height: "45px",
+        borderRadius: "10px"
       }}/></a>
       {
         props.statusLogin && <button className="btn btn-outline-info" style={{

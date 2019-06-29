@@ -6,15 +6,12 @@ import Home from './views/Home'
 import Login from './views/Login'
 import JobDetail from './views/JobDetail'
 import './App.css';
-import Navbar from './components/Navbar';
 
 function App() {
 
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
-
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" exact component={Login} />

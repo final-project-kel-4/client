@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import JobLinkForm from "../components/JobLinkForm";
 import HomeJobCard from "../components/HomeJobCard";
 import { connect } from "react-redux";
+import Navbar from '../components/Navbar'
 import axios from 'axios';
 
 function Home(props) {
@@ -47,6 +48,7 @@ function Home(props) {
     <>
       {statusLogin ? (
         <div>
+          <Navbar/>
           <div className="container">
             <div
               className="row d-flex justify-content-center"
@@ -68,8 +70,9 @@ function Home(props) {
                   <Link to={`/job/${el._id}`} style={{
                     color: 'black',
                     textDecorationColor: "#143D5C"
-                  }}>
-                    <div className="col col-md-2 mb-3" key={index}>
+                    
+                  }} key={index}>
+                    <div className="col col-md-2 mb-3" >
                     <HomeJobCard data={el} key={index} />
                   </div>
                   </Link>
