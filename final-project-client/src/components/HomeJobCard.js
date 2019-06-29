@@ -8,7 +8,7 @@ export default function HomeJobCard(props) {
       borderRadius: "10px",
       width: "11rem"
     }}>
-      <img className="card-img-top" src={image} style={{
+      <img className="card-img-top" src={image} alt={"Not found"} style={{
         borderTopLeftRadius: '10px',
         borderTopRightRadius: '10px',
         height: "10"

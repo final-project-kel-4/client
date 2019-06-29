@@ -11,7 +11,7 @@ export default function JobLinkForm(props) {
       function() {
         setIsLoading(false);
         setLinkInput('')
-      }.bind(this),
+      },
       2000
     );
   };

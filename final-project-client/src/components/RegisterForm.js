@@ -27,7 +27,7 @@ export default function RegisterForm(props) {
       function() {
         setIsRegistring(false);
         setIsNavigatingToLogin(false);
-      }.bind(this),
+      },
       300
     );
   };
@@ -105,7 +105,7 @@ export default function RegisterForm(props) {
                 backgroundColor: "#EFF2F5",
                 borderTopLeftRadius: "10px",
                 borderTopRightRadius: "10px",
-                paddingTop: "18px",
+                paddingTop: "4px",
                 width: "400px"
               }}
               className="row px-3"

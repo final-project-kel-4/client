@@ -29,8 +29,7 @@ function LoginFormOnly(props) {
       function(){
         setIsRegistring(true)
         setIsNavigatingToRegister(false)
-      }
-      .bind(this),
+      },
       300
     )
   };

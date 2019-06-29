@@ -1,14 +1,6 @@
 import React, {useState} from 'react'
 import LoginFormOnly from './LoginFormOnly'
 import RegisterForm from './RegisterForm'
-// import styled, { keyframes } from "styled-components"
-// import { slideInRight, slideInLeft } from "react-animations"
-// const slideRightAnimation = keyframes`${slideInRight}`
-// const slideLeftAnimation = keyframes`${slideInLeft}`
-// const SlideInRight = styled.div`animation: 1s ${slideRightAnimation};`
-// const SlideInLeft = styled.div`animation: 1s ${slideLeftAnimation}`
-
-
 
 export default function LoginForm() {
   const [isRegistring, setIsRegistring] = useState(false)

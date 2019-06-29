@@ -4,11 +4,11 @@ export default function Navbar() {
   return (
     <>
      <nav className="navbar" style={{
-       backgroundColor: "#EDF5F7"
+       backgroundColor: "#e4eff2"
      }}>
-      <a className="navbar-brand mr-auto" href="#" style={{
+      <a className="navbar-brand mr-auto" href="/" style={{
         color: "black"
-      }}><img src="https://i.imgur.com/UEh1mIz.png" style={{
+      }}><img src="https://i.imgur.com/UEh1mIz.png" alt="Not found"style={{
         width: "100px",
         borderRadius: "4px"
       }}/></a>

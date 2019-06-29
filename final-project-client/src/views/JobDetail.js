@@ -1,13 +1,22 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar";
 import CandidateForm from "../components/CandidateForm";
-import { FiXCircle, FiRefreshCcw } from "react-icons/fi";
+import { FiXCircle, FiRefreshCcw, FiHome } from "react-icons/fi";
 import CandidateTable from "../components/CandidateTable";
-import { GooSpinner } from "react-spinners-kit"
+import { GooSpinner } from "react-spinners-kit";
+import { shake } from "react-animations";
+import styled, { keyframes } from "styled-components";
+
+
+const shakeAnimation = keyframes`${shake}`;
+const Shake = styled.div`
+  animation: 2s ${shakeAnimation};
+`;
 
 export default function JobDetail({ match }) {
   const [fileInput, setFileInput] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([
     {
       name: "Robby Chaesar Putra",
@@ -25,19 +34,16 @@ export default function JobDetail({ match }) {
   const inputingFile = () => {
     setFileInput(!fileInput);
   };
-  const submitFile = (e)=>{
-    if(e) e.preventDefault()
-  }
-  const refresh = (e) =>{
-    if (e) e.preventDefault()
-    setIsRefreshing(true)
-    setTimeout(
-      function() {
-        setIsRefreshing(false);
-      }.bind(this),
-      5000
-    );
-  }
+  const submitFile = e => {
+    if (e) e.preventDefault();
+  };
+  const refresh = e => {
+    if (e) e.preventDefault();
+    setIsRefreshing(true);
+    setTimeout(function() {
+      setIsRefreshing(false);
+    }, 5000);
+  };
   const [data, setData] = useState({
     jobDesk: "Intern Web Developer",
     company: "Hacktiv8 Indonesia",
@@ -45,6 +51,14 @@ export default function JobDetail({ match }) {
       "https://media.licdn.com/dms/image/C560BAQGN_K0pLI09-w/company-logo_400_400/0?e=1570060800&v=beta&t=dGtbEdJVsW75mMSA0cQVf7V_MEWnHaqkRQ0CJzwesh0",
     address: "Jakarta Selatan, DKI Jakarta"
   });
+
+  const [isShaking, setIsShaking] = useState(false);
+  const shakeIt = () => {
+    setIsShaking(true);
+    setTimeout(function() {
+      setIsShaking(false);
+    }, 2000);
+  };
   return (
     <>
       <Navbar />
@@ -53,6 +67,7 @@ export default function JobDetail({ match }) {
           <div className="col col-md-5">
             <div className="d-flex justify-content-center mb-3">
               <img
+                alt="Not found"
                 src={data.image}
                 style={{
                   height: "10vh",
@@ -78,21 +93,37 @@ export default function JobDetail({ match }) {
                 <div className="pt-3">
                   <form onSubmit={submitFile}>
                     <div className="form-group">
-                      <label for="fileInput">.TXT or .DOCS file:</label>
+                      <label htmlFor="fileInput">.TXT or .DOCS file:</label>
                       <input
                         type="file"
                         className="form-control-file"
                         id="fileInput"
                         aria-describedby="fileInputHelp"
+                        onClick={shakeIt}
                       />
-                      <small
-                        className="form-text pt-4"
-                        style={{
-                          fontSize: "18px"
-                        }}
-                      >
-                        IMPORTANT!!!!
-                      </small>
+                      {isShaking ? (
+                        <Shake>
+                          <small
+                            className="form-text pt-4"
+                            style={{
+                              fontSize: "18px",
+                              color: "red"
+                            }}
+                          >
+                            IMPORTANT!!!!
+                          </small>
+                        </Shake>
+                      ) : (
+                        <small
+                          className="form-text pt-4"
+                          style={{
+                            fontSize: "18px"
+                          }}
+                        >
+                          IMPORTANT!!!!
+                        </small>
+                      )}
+
                       <small
                         className="form-text"
                         style={{
@@ -103,12 +134,16 @@ export default function JobDetail({ match }) {
                       </small>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <button className="btn btn-secondary" style={{
-                        backgroundColor: "#143D5C",
-                        color: "white"
-                      }}
-                      type="submit"
-                      >Submit!</button>
+                      <button
+                        className="btn btn-secondary"
+                        style={{
+                          backgroundColor: "#143D5C",
+                          color: "white"
+                        }}
+                        type="submit"
+                      >
+                        Submit!
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -140,16 +175,37 @@ export default function JobDetail({ match }) {
           <div className="col col-md-7">
             <div className="d-flex justify-content-center flex-column">
               <h3 className="mb-4">Candidates:</h3>
-              <CandidateTable candidates={candidates}/>
+              <CandidateTable candidates={candidates} />
               <div className="d-flex justify-content-around pt-4">
-              {isRefreshing ? <GooSpinner size={70} color="#9ED6D2"/> : 
-              <button className="btn" style={{
-                backgroundColor: '#9ED6D2',
-                fontSize: "16px",
-                paddingBottom: "9px"
-              }}
-              onClick={refresh}><FiRefreshCcw/> Refresh List</button>
-            }
+                {isRefreshing ? (
+                  <GooSpinner size={70} color="#9ED6D2" />
+                ) : (
+                  <button
+                    className="btn"
+                    style={{
+                      backgroundColor: "#9ED6D2",
+                      fontSize: "16px",
+                      paddingBottom: "9px"
+                    }}
+                    onClick={refresh}
+                  >
+                    <FiRefreshCcw /> Refresh List
+                  </button>
+                )}
+                <Link to="/">
+                  <button
+                    className="btn btn-secondary"
+                    style={{
+                      backgroundColor: "#143D5C",
+                      color: "white"
+                    }}
+                  >
+                    <FiHome style={{
+                      fontSize: "20px",
+                      paddingBottom: "3px"
+                    }}/> Back To Home
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
