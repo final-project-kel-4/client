@@ -1,5 +1,6 @@
 import React from "react";
 import { StageSpinner } from "react-spinners-kit";
+import axios from 'axios';
 
 export default function JobLinkForm(props) {
   const { isLoading, setIsLoading } = props.isLoading;
@@ -7,14 +8,21 @@ export default function JobLinkForm(props) {
   const loading = e => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(
-      function() {
-        setIsLoading(false);
-        setLinkInput('')
-      }.bind(this),
-      2000
-    );
+
+    axios.post(`http://localhost:3000/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
+    .then(()=>{
+      setIsLoading(false);
+      setLinkInput('')
+    })
+    // setTimeout(
+    //   function() {
+    //     setIsLoading(false);
+    //     setLinkInput('')
+    //   }.bind(this),
+    //   2000
+    // );
   };
+  
   return (
     <div
       style={{

@@ -47,7 +47,6 @@ export default function JobDetail({ match }) {
   });
   return (
     <>
-      <Navbar />
       <div className="container">
         <div className="row pt-4">
           <div className="col col-md-5">

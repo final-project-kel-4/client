@@ -1,6 +1,21 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import { setLogin } from '../store/action';
+import swal from 'sweetalert'
 
-export default function Navbar() {
+function Navbar(props) {
+  if(localStorage.token){
+    props.setLogin(true)
+  }
+
+  function logout(){
+    props.setLogin(false)
+    swal('bye :)', 'success')
+    localStorage.removeItem('token')
+    props.history.push('/login')
+  }
+
   return (
     <>
      <nav className="navbar" style={{
@@ -12,11 +27,24 @@ export default function Navbar() {
         width: "100px",
         borderRadius: "4px"
       }}/></a>
-      <button className="btn btn-outline-info" style={{
-        backgroundColor: "#143D5C",
-        color: "white"
-      }}>Log Out</button>
+      {
+        props.statusLogin && <button className="btn btn-outline-info" style={{
+          backgroundColor: "#143D5C",
+          color: "white" }}  onClick={logout}>Log Out</button>
+      }      
      </nav>
     </>
   )
 }
+
+const mapStateToProps= state =>{
+  return {
+    statusLogin : state.isLogin
+  }
+}
+
+const mapDispatchToProps = {
+  setLogin,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navbar))

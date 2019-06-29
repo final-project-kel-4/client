@@ -1,14 +1,14 @@
 import React from 'react'
 
 export default function HomeJobCard(props) {
-  const {image, jobDesk, company} = props.data
+  const {company, title} = props.data
   return (
     <div className='card' style={{
       height: "19rem",
       borderRadius: "10px",
       width: "11rem"
     }}>
-      <img className="card-img-top" src={image} style={{
+      <img className="card-img-top" src={company.img} style={{
         borderTopLeftRadius: '10px',
         borderTopRightRadius: '10px',
         height: "10"
@@ -16,10 +16,10 @@ export default function HomeJobCard(props) {
       <div className="card-body">
         <h5 style={{
           fontSize: "18px"
-        }}>{jobDesk}</h5>
+        }}>{title}</h5>
         <p style={{
           fontSize: "14px"
-        }} className="text-muted">{company}</p>
+        }} className="text-muted">{company.name}</p>
       </div>
     </div>
   )
