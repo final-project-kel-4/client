@@ -17,35 +17,30 @@ const Shake = styled.div`
 
 export default function JobDetail({ match, history }) {
   const [data, setData] = useState({ company: {} });
-
+  const [idMatching, setIdMatching] = useState('')
   const [fileInput, setFileInput] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [candidates, setCandidates] = useState([
-    {
-      name: "Robby Chaesar Putra",
-      score: "99"
-    },
-    {
-      name: "Fahmi Nugra Sutansyah",
-      score: "88"
-    },
-    {
-      name: "Rubhi Aulia",
-      score: "110"
-    }
-  ]);
+  const [candidates, setCandidates] = useState([]);
   const inputingFile = () => {
     setFileInput(!fileInput);
   };
   const submitFile = e => {
     if (e) e.preventDefault();
   };
-  const refresh = e => {
+  const refresh = async e => {
+    let comparison
     if (e) e.preventDefault();
     setIsRefreshing(true);
-    setTimeout(function () {
+    try {
+      comparison = await axios.get(`http://localhost:3000/match/${data.matching}/refresh`, { headers: { 'authorization': localStorage.getItem('token') } });
+    }
+    catch(err) {
+      console.log(err);
+    }
+    finally {
+      console.log(comparison.data);
       setIsRefreshing(false);
-    }, 5000);
+    }
   };
 
   const [isShaking, setIsShaking] = useState(false);
@@ -56,13 +51,23 @@ export default function JobDetail({ match, history }) {
     }, 2000);
   };
 
+  function uploadFile(e){
+    if (e) e.preventDefault();
+    console.log(e.target.files[0]);
+    
+  }
 
   useEffect(() => {
     axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         setData(data)
+        console.log('sukses');
+        console.log(data);
+        let matching = await axios.get(`http://localhost:3000/match/${data.matching}`, { headers: { 'authorization': localStorage.getItem('token') } })
+        setCandidates(matching.data.items.map(x => { return {name: x.candidate.name, score: x.score}}))
+        setIdMatching(data.matching)
       })
-  }, [])
+  }, [match.params.id])
 
   function removeJob() {
     swal({
@@ -80,6 +85,14 @@ export default function JobDetail({ match, history }) {
             })
         }
       });
+  }
+
+  function onAddCandidate(result) {
+    console.log('entering jobdetail..', result)
+    let list = result.items.map(x => {
+      return {...x, name: x.candidate.name}
+    })
+    setCandidates(list)
   }
 
   return (
@@ -122,6 +135,7 @@ export default function JobDetail({ match, history }) {
                         id="fileInput"
                         aria-describedby="fileInputHelp"
                         onClick={shakeIt}
+                        onChange={uploadFile}
                       />
                       {isShaking ? (
                         <Shake>
@@ -181,7 +195,7 @@ export default function JobDetail({ match, history }) {
             ) : (
                 <>
                   <div className="pt-3">
-                    <CandidateForm />
+                    <CandidateForm idJob={match.params.id} onAddCandidate={(data) => {onAddCandidate(data)}}/>
                   </div>
                   <div className="d-flex justify-content-center mt-3">
                     <button
