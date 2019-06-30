@@ -17,7 +17,6 @@ const Shake = styled.div`
 
 export default function JobDetail({ match, history }) {
   const [data, setData] = useState({ company: {} });
-  const [idMatching, setIdMatching] = useState('')
   const [fileInput, setFileInput] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([]);
