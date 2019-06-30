@@ -15,6 +15,7 @@ function Home(props) {
   const [linkInput, setLinkInput] = useState("");
 
   function fetchData(){
+    console.log('fetching jobs...')
     axios.get(`http://localhost:3000/job`, {headers:{'authorization':localStorage.getItem('token')}})
     .then(({data})=>{
       console.log(data);

@@ -90,7 +90,7 @@ export default function JobDetail({ match, history }) {
             <div className="d-flex justify-content-center mb-3">
               <img
                 alt="Not found"
-                src={data.company.img}
+                src={data.company.logo}
                 style={{
                   height: "10vh",
                   width: "10vh"
