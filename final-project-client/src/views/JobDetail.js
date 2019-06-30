@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar";
 import CandidateForm from "../components/CandidateForm";
@@ -7,14 +7,17 @@ import CandidateTable from "../components/CandidateTable";
 import { GooSpinner } from "react-spinners-kit";
 import { shake } from "react-animations";
 import styled, { keyframes } from "styled-components";
-
+import axios from 'axios';
+import swal from "sweetalert";
 
 const shakeAnimation = keyframes`${shake}`;
 const Shake = styled.div`
   animation: 2s ${shakeAnimation};
 `;
 
-export default function JobDetail({ match }) {
+export default function JobDetail({ match, history }) {
+  const [data, setData] = useState({ company: {} });
+
   const [fileInput, setFileInput] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([
@@ -40,25 +43,45 @@ export default function JobDetail({ match }) {
   const refresh = e => {
     if (e) e.preventDefault();
     setIsRefreshing(true);
-    setTimeout(function() {
+    setTimeout(function () {
       setIsRefreshing(false);
     }, 5000);
   };
-  const [data, setData] = useState({
-    jobDesk: "Intern Web Developer",
-    company: "Hacktiv8 Indonesia",
-    image:
-      "https://media.licdn.com/dms/image/C560BAQGN_K0pLI09-w/company-logo_400_400/0?e=1570060800&v=beta&t=dGtbEdJVsW75mMSA0cQVf7V_MEWnHaqkRQ0CJzwesh0",
-    address: "Jakarta Selatan, DKI Jakarta"
-  });
 
   const [isShaking, setIsShaking] = useState(false);
   const shakeIt = () => {
     setIsShaking(true);
-    setTimeout(function() {
+    setTimeout(function () {
       setIsShaking(false);
     }, 2000);
   };
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
+      .then(({ data }) => {
+        setData(data)
+      })
+  }, [])
+
+  function removeJob() {
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          axios.delete(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
+            .then(() => {
+              swal('Remove job success', '', 'success')
+              history.push('/')
+            })
+        }
+      });
+  }
+
   return (
     <>
       <div className="container">
@@ -67,18 +90,18 @@ export default function JobDetail({ match }) {
             <div className="d-flex justify-content-center mb-3">
               <img
                 alt="Not found"
-                src={data.image}
+                src={data.company.img}
                 style={{
                   height: "10vh",
                   width: "10vh"
                 }}
               />
             </div>
-            <h4 className="text-center">{data.jobDesk}</h4>
-            <h5 className="text-center">{data.company}</h5>
-            <h6 className="text-center text-muted">{data.address}</h6>
+            <h4 className="text-center">{data.title}</h4>
+            <h5 className="text-center">{data.company.name}</h5>
+            <h6 className="text-center text-muted">{data.company.address}</h6>
             <div className="d-flex justify-content-center mt-3">
-              <button className="btn btn-outline-danger">
+              <button className="btn btn-outline-danger" onClick={removeJob}>
                 <FiXCircle
                   style={{
                     fontSize: "25px"
@@ -113,15 +136,15 @@ export default function JobDetail({ match }) {
                           </small>
                         </Shake>
                       ) : (
-                        <small
-                          className="form-text pt-4"
-                          style={{
-                            fontSize: "18px"
-                          }}
-                        >
-                          IMPORTANT!!!!
+                          <small
+                            className="form-text pt-4"
+                            style={{
+                              fontSize: "18px"
+                            }}
+                          >
+                            IMPORTANT!!!!
                         </small>
-                      )}
+                        )}
 
                       <small
                         className="form-text"
@@ -156,20 +179,20 @@ export default function JobDetail({ match }) {
                 </div>
               </>
             ) : (
-              <>
-                <div className="pt-3">
-                  <CandidateForm />
-                </div>
-                <div className="d-flex justify-content-center mt-3">
-                  <button
-                    className="btn btn-outline-dark"
-                    onClick={inputingFile}
-                  >
-                    File Input
+                <>
+                  <div className="pt-3">
+                    <CandidateForm />
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={inputingFile}
+                    >
+                      File Input
                   </button>
-                </div>
-              </>
-            )}
+                  </div>
+                </>
+              )}
           </div>
           <div className="col col-md-7">
             <div className="d-flex justify-content-center flex-column">
@@ -179,18 +202,18 @@ export default function JobDetail({ match }) {
                 {isRefreshing ? (
                   <GooSpinner size={70} color="#9ED6D2" />
                 ) : (
-                  <button
-                    className="btn"
-                    style={{
-                      backgroundColor: "#9ED6D2",
-                      fontSize: "16px",
-                      paddingBottom: "9px"
-                    }}
-                    onClick={refresh}
-                  >
-                    <FiRefreshCcw /> Refresh List
+                    <button
+                      className="btn"
+                      style={{
+                        backgroundColor: "#9ED6D2",
+                        fontSize: "16px",
+                        paddingBottom: "9px"
+                      }}
+                      onClick={refresh}
+                    >
+                      <FiRefreshCcw /> Refresh List
                   </button>
-                )}
+                  )}
                 <Link to="/">
                   <button
                     className="btn btn-secondary"
@@ -202,7 +225,7 @@ export default function JobDetail({ match }) {
                     <FiHome style={{
                       fontSize: "20px",
                       paddingBottom: "3px"
-                    }}/> Back To Home
+                    }} /> Back To Home
                   </button>
                 </Link>
               </div>
