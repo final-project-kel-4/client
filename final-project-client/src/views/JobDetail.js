@@ -21,7 +21,7 @@ export default function JobDetail({ match, history }) {
   const [fileInput, setFileInput] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([
-    {
+    /* {
       name: "Robby Chaesar Putra",
       score: "99"
     },
@@ -32,7 +32,7 @@ export default function JobDetail({ match, history }) {
     {
       name: "Rubhi Aulia",
       score: "110"
-    }
+    } */
   ]);
   const inputingFile = () => {
     setFileInput(!fileInput);
@@ -40,12 +40,22 @@ export default function JobDetail({ match, history }) {
   const submitFile = e => {
     if (e) e.preventDefault();
   };
-  const refresh = e => {
+  const refresh = async e => {
+    let comparison;
     if (e) e.preventDefault();
     setIsRefreshing(true);
-    setTimeout(function () {
+    try {
+      comparison = await axios.get(`http://localhost:3000/match/5d18c93763c44b39afa7c73e/refresh`, { headers: { 'authorization': localStorage.getItem('token') } });
+    }
+    catch(err) {
+      console.log(err);
+    }
+    finally {
+      console.log(comparison.data);
       setIsRefreshing(false);
-    }, 5000);
+    }
+
+
   };
 
   const [isShaking, setIsShaking] = useState(false);
@@ -59,10 +69,13 @@ export default function JobDetail({ match, history }) {
 
   useEffect(() => {
     axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         setData(data)
+        console.log(data);
+        let matching = await axios.get(`http://localhost:3000/match/${data.matching}`, { headers: { 'authorization': localStorage.getItem('token') } })
+        setCandidates(matching.data.items.map(x => { return {name: x.candidate.name, score: x.score}}))
       })
-  }, [])
+  }, [match.params.id])
 
   function removeJob() {
     swal({
@@ -80,6 +93,14 @@ export default function JobDetail({ match, history }) {
             })
         }
       });
+  }
+
+  function onAddCandidate(result) {
+    console.log('entering jobdetail..', result)
+    let list = result.items.map(x => {
+      return {...x, name: x.candidate.name}
+    })
+    setCandidates(list)
   }
 
   return (
@@ -181,7 +202,7 @@ export default function JobDetail({ match, history }) {
             ) : (
                 <>
                   <div className="pt-3">
-                    <CandidateForm />
+                    <CandidateForm jobId={data._id} onAddCandidate={(data) => {onAddCandidate(data)}}/>
                   </div>
                   <div className="d-flex justify-content-center mt-3">
                     <button

@@ -1,15 +1,31 @@
 import React, { useState } from "react";
 import { shake } from "react-animations";
 import styled, { keyframes } from "styled-components";
+import axios from 'axios'
 const shakeAnimation = keyframes`${shake}`;
 const Shake = styled.div`
   animation: 2s ${shakeAnimation};
 `;
 
-export default function CandidateForm() {
+
+
+export default function CandidateForm(props) {
   const [isShaking, setIsShaking] = useState(false);
-  const submit = e => {
+  const [links, setLinks] = useState("");
+
+  const submit = async e => {
     if (e) e.preventDefault();
+      let linkedins = links.split("\n").filter(x => x)
+      let sendData = {jobId: props.jobId,linkedin: linkedins};
+      console.log(sendData);
+    try {
+      let {data} = await axios.post("http://localhost:3000/job/addCandidate", sendData, {headers:{'authorization':localStorage.getItem('token')}})
+      props.onAddCandidate(data);
+    }
+    catch(err) {
+      console.log("ERRORR --- ",err);
+      props.onAddCandidate(null);
+    }
   };
   const shakeIt = () => {
     setIsShaking(true);
@@ -38,6 +54,7 @@ export default function CandidateForm() {
             rows="6"
             aria-describedby="inputHelp"
             onFocus={shakeIt}
+            value={links} onChange={e => {setLinks(e.target.value)}}
           />
           {isShaking ? (
             <Shake>
