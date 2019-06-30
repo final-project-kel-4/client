@@ -8,21 +8,7 @@ import axios from 'axios';
 
 function Home(props) {
   const { statusLogin } = props;
-  const [jobData, setJobData] = useState([
-    {
-      jobDesk: "Intern Web Developer",
-      company: "Hacktiv8",
-      image:
-        "https://media.licdn.com/dms/image/C560BAQGN_K0pLI09-w/company-logo_400_400/0?e=1570060800&v=beta&t=dGtbEdJVsW75mMSA0cQVf7V_MEWnHaqkRQ0CJzwesh0"
-    }
-  ]);
-
-  // {
-  //   jobDesk: "Intern Web Developer",
-  //   company: "Hacktiv8",
-  //   image:
-  //     "https://media.licdn.com/dms/image/C560BAQGN_K0pLI09-w/company-logo_400_400/0?e=1570060800&v=beta&t=dGtbEdJVsW75mMSA0cQVf7V_MEWnHaqkRQ0CJzwesh0"
-  // }
+  const [jobData, setJobData] = useState([]);
 
   const [isInputLoading, setIsInputLoading] = useState(false);
   const [linkInput, setLinkInput] = useState("");
