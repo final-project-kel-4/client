@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
-import Navbar from "../components/Navbar";
 import CandidateForm from "../components/CandidateForm";
 import { FiXCircle, FiRefreshCcw, FiHome } from "react-icons/fi";
 import CandidateTable from "../components/CandidateTable";
@@ -64,7 +63,6 @@ export default function JobDetail({ match, history }) {
         console.log(data);
         let matching = await axios.get(`http://localhost:3000/match/${data.matching}`, { headers: { 'authorization': localStorage.getItem('token') } })
         setCandidates(matching.data.items.map(x => { return {name: x.candidate.name, score: x.score}}))
-        setIdMatching(data.matching)
       })
   }, [match.params.id])
 
