@@ -4,9 +4,9 @@ export default function HomeJobCard(props) {
   const {company, title} = props.data
   return (
     <div className='card' style={{
-      height: "20rem",
+      height: "21rem",
       borderRadius: "10px",
-      width: "13rem"
+      width: "11rem"
     }}>
       <img className="card-img-top" src={company.logo} alt={"Not found"} style={{
         borderTopLeftRadius: '10px',
@@ -14,9 +14,15 @@ export default function HomeJobCard(props) {
         height: "10"
       }}/>
       <div className="card-body">
+        <div style={{
+          height: "86px",
+          overflow: "hidden"
+        }}>
         <h5 style={{
           fontSize: "18px"
         }}>{title}</h5>
+        </div>
+        <br/>
         <p style={{
           fontSize: "14px"
         }} className="text-muted">{company.name}</p>

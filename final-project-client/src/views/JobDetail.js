@@ -157,7 +157,8 @@ export default function JobDetail({ match, history }) {
                 src={data.company.logo}
                 style={{
                   height: "10vh",
-                  width: "10vh"
+                  width: "10vh",
+                  borderRadius: "10px"
                 }}
               />
             </div>

@@ -6,3 +6,10 @@
 .btn:hover{
   transform: scale(1.1);
 }
+.card{
+  transition: transform .2s, box-shadow .3s;
+}
+.card:hover{
+  transform: scale(1.03);
+  box-shadow: 0 2px 20px rgba(33,33,33,.2);
+}
