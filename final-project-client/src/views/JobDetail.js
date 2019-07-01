@@ -14,6 +14,15 @@ const Shake = styled.div`
   animation: 2s ${shakeAnimation};
 `;
 
+const sortScore = (inputArray) => {
+  inputArray.sort((a,b) => {
+    if(a.score < b.score) return 1
+    else if(a.score > b.score) return -1
+    else return 0
+  })
+
+  return inputArray
+}
 export default function JobDetail({ match, history }) {
   const [data, setData] = useState({ company: {} });
   const [fileInput, setFileInput] = useState(false);
@@ -31,12 +40,22 @@ export default function JobDetail({ match, history }) {
     setIsRefreshing(true);
     try {
       comparison = await axios.get(`http://localhost:3000/match/${data.matching}/refresh`, { headers: { 'authorization': localStorage.getItem('token') } });
+      let result = []
+
+      sortScore(comparison.data.items)
+      result = comparison.data.items.map(item => {
+        return {
+          name: item.candidate.name,
+          score: item.score
+        }
+      })
+
+      setCandidates(result)
     }
     catch(err) {
       console.log(err);
     }
     finally {
-      console.log(comparison.data);
       setIsRefreshing(false);
     }
   };
@@ -60,8 +79,8 @@ export default function JobDetail({ match, history }) {
       .then(async ({ data }) => {
         setData(data)
         console.log('sukses');
-        console.log(data);
         let matching = await axios.get(`http://localhost:3000/match/${data.matching}`, { headers: { 'authorization': localStorage.getItem('token') } })
+        sortScore(matching.data.items)
         setCandidates(matching.data.items.map(x => { return {name: x.candidate.name, score: x.score}}))
       })
   }, [match.params.id])
@@ -86,6 +105,7 @@ export default function JobDetail({ match, history }) {
 
   function onAddCandidate(result) {
     console.log('entering jobdetail..', result)
+    sortScore(result.items)
     let list = result.items.map(x => {
       return {...x, name: x.candidate.name}
     })
