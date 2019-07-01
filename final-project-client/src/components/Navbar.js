@@ -2,7 +2,7 @@ import React from 'react'
 import {withRouter, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { setLogin } from '../store/action';
-import swal from 'sweetalert'
+import swal from 'sweetalert';
 
 function Navbar(props) {
   if(localStorage.token){
@@ -10,10 +10,19 @@ function Navbar(props) {
   }
 
   function logout(){
-    props.setLogin(false)
-    swal('bye :)', 'success')
-    localStorage.removeItem('token')
-    props.history.push('/login')
+    swal({
+      title: "Are you sure to log out?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true
+    }).then(confirm => {
+      if (confirm) {
+        props.setLogin(false)
+        props.history.push('/login')
+        swal("Bye-bye",'Hope to see you soon', "success")
+        localStorage.removeItem('token')
+      }
+    });
   }
 
   return (
@@ -22,7 +31,7 @@ function Navbar(props) {
        backgroundColor: "#e4eff2"
      }}>
       <Link to="/">
-        <a className="navbar-brand mr-auto" href="#" style={{
+        <div className="navbar-brand mr-auto"style={{
           color: "black"
         }}><img src="https://i.imgur.com/Iz42FEQ.png" alt="Not found"style={{
           width: "33px"
@@ -31,7 +40,7 @@ function Navbar(props) {
           width: "60px",
           marginLeft: "10px"
         }}/>
-        </a>
+        </div>
       </Link>
       
       {

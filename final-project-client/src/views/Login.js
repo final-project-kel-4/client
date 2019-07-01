@@ -30,19 +30,20 @@ function Login(props) {
               <div
                 className="col col-md-5"
                 style={{
-                  paddingTop: "15vh"
+                  paddingTop: "12vh"
                 }}
               >
                 <FadeIn className="row d-flex justify-content-center mb-3">
                   <img src="https://i.imgur.com/f1Ir6K0.png" alt="Not found" style={{
-                    width: "150px",
-                    borderRadius: "50px"
+                    width: "200px",
+                    borderRadius: "50px",
+                    marginBottom: "-1vh"
                   }}/>
                 </FadeIn>
                 <FadeIn
                   className="row d-flex justify-content-center flex-column"
                   style={{
-                    marginBottom: "4vh"
+                    marginBottom: "2vh"
                   }}
                 >
                   <h2 className="text-center">Welcome To matchIn</h2>

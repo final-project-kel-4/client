@@ -26,7 +26,7 @@ export default function CandidateTable(props) {
               return (
                 <tr key={index}>
                   <td>{el.name}</td>
-                  <td>{(Number(el.score)* 100).toFixed(2)} %</td>
+                  {el.score > 0 ? <td>{(Number(el.score)* 100).toFixed(2)} %</td> : <td><p>Not yet calculated</p></td>}
                   <td>
                     <button className="btn btn-sm btn-danger">
                       <FiUserX/>

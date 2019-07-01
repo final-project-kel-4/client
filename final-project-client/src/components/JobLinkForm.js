@@ -29,7 +29,7 @@ export default function JobLinkForm(props) {
     >
       <form onSubmit={submit}>
         <div className="form-group">
-          <h2 className="text-center pb-2">LinkedIn Link: </h2>
+          <h2 className="text-center pb-2">LinkedIn Job Link: </h2>
           {isLoading ? (
             <div className="d-flex justify-content-center">
               <StageSpinner size={45} color="#9ED6D2" />
