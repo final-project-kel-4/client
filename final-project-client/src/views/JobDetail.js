@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import NavBar from "../components/Navbar"
 import CandidateForm from "../components/CandidateForm";
 import { FiXCircle, FiRefreshCcw, FiHome, FiTrendingUp, FiTrendingDown} from "react-icons/fi";
 import CandidateTable from "../components/CandidateTable";
@@ -131,10 +132,12 @@ export default function JobDetail({ match, history }) {
     })
     console.log(list)
     setCandidates(list)
+    setIsDescending(true)
   }
 
   return (
     <>
+    <NavBar/>
       <div className="container">
         <div className="row pt-4">
           <div className="col col-md-5">

@@ -1,5 +1,5 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { setLogin } from '../store/action';
 import swal from 'sweetalert'
@@ -21,13 +21,19 @@ function Navbar(props) {
      <nav className="navbar" style={{
        backgroundColor: "#e4eff2"
      }}>
-      <a className="navbar-brand mr-auto" href="/" style={{
-        color: "black"
-      }}><img src="https://i.imgur.com/la9GkA9.png" alt="Not found"style={{
-        width: "100px",
-        height: "45px",
-        borderRadius: "10px"
-      }}/></a>
+      <Link to="/">
+        <a className="navbar-brand mr-auto" href="#" style={{
+          color: "black"
+        }}><img src="https://i.imgur.com/Iz42FEQ.png" alt="Not found"style={{
+          width: "33px"
+        }}/>
+        <img src="https://i.imgur.com/v6EfffO.png" alt="Not found" style={{
+          width: "60px",
+          marginLeft: "10px"
+        }}/>
+        </a>
+      </Link>
+      
       {
         props.statusLogin && <button className="btn btn-outline-info" style={{
           backgroundColor: "#143D5C",
