@@ -1,5 +1,5 @@
 import React from 'react'
-import {FiUserX} from 'react-icons/fi'
+import { FiUserX } from 'react-icons/fi'
 
 export default function CandidateTable(props) {
   const {candidates} = props
