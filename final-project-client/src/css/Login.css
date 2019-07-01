@@ -1,4 +1,8 @@
 .btn{
   border-radius: 50px !important; 
   z-index: 10;
+  transition: transform .2s;
+}
+.btn:hover{
+  transform: scale(1.1);
 }

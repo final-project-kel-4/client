@@ -1,26 +1,24 @@
 import React from "react";
 import { StageSpinner } from "react-spinners-kit";
 import axios from 'axios';
+import swal from 'sweetalert'
 
 export default function JobLinkForm(props) {
   const { isLoading, setIsLoading } = props.isLoading;
   const { linkInput, setLinkInput } = props.linkInput
-  const loading = e => {
-    e.preventDefault();
-    setIsLoading(true);
+  const submit = e => {
+    if (e)e.preventDefault();
+    if(linkInput){
+      setIsLoading(true);
 
-    axios.post(`http://localhost:3000/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
-    .then(()=>{
-      setIsLoading(false);
-      setLinkInput('')
-    })
-    // setTimeout(
-    //   function() {
-    //     setIsLoading(false);
-    //     setLinkInput('')
-    //   }.bind(this),
-    //   2000
-    // );
+      axios.post(`http://localhost:3000/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
+      .then(()=>{
+        setIsLoading(false);
+        setLinkInput('')
+      })
+    }
+    else swal('Please fill up the form', '', 'warning')
+    
   };
   
   return (
@@ -29,7 +27,7 @@ export default function JobLinkForm(props) {
         width: "50vh"
       }}
     >
-      <form onSubmit={loading}>
+      <form onSubmit={submit}>
         <div className="form-group">
           <h2 className="text-center pb-2">LinkedIn Link: </h2>
           {isLoading ? (

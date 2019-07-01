@@ -16,7 +16,6 @@ export default function CandidateForm(props) {
   const [isSubmiting, setIsSubmiting] = useState(false);
   const submit = e => {
     if (e) e.preventDefault();
-    console.log("MASUK");
     if (inputCandidate) {
       setIsSubmiting(true);
       axios
@@ -26,7 +25,6 @@ export default function CandidateForm(props) {
           { headers: { authorization: localStorage.getItem("token") } }
         )
         .then(({ data }) => {
-          console.log(data);
           setIsSubmiting(false);
           props.onAddCandidate(data);
           setInputCandidate("");

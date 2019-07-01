@@ -154,7 +154,7 @@ export default function JobDetail({ match, history }) {
             <h4 className="text-center">{data.title}</h4>
             <h5 className="text-center">{data.company.name}</h5>
             <h6 className="text-center text-muted">{data.company.address}</h6>
-            <div className="d-flex justify-content-center mt-3">
+            <div className="d-flex justify-content-center my-3">
               <button className="btn btn-outline-danger" onClick={removeJob}>
                 <FiXCircle
                   style={{
