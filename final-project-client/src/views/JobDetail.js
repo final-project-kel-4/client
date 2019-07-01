@@ -88,6 +88,7 @@ export default function JobDetail({ match, history }) {
   function removeJob() {
     swal({
       title: "Are you sure?",
+      text: `Delete ${data.title}?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,

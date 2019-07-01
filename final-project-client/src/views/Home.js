@@ -51,7 +51,7 @@ function Home(props) {
                 linkInput={{ linkInput, setLinkInput }}
               />
             </div>
-            <div className="row pt-4">
+            <div className="row pt-4 d-flex justify-content-center">
               {jobData.map((el, index) => {
                 return (
                   <Link to={`/job/${el._id}`} style={{
@@ -59,7 +59,7 @@ function Home(props) {
                     textDecorationColor: "#143D5C"
                     
                   }} key={index}>
-                    <div className="col col-md-2 mb-3" >
+                    <div className="col col-sm-12 mb-3" >
                     <HomeJobCard data={el} key={index} />
                   </div>
                   </Link>
