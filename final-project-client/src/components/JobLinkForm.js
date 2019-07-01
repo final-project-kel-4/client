@@ -11,7 +11,6 @@ export default function JobLinkForm(props) {
     if(linkInput){
       setIsLoading(true);
 
-<<<<<<< HEAD
       axios.post(`http://localhost:3000/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
       .then(()=>{
         setIsLoading(false);
@@ -20,13 +19,6 @@ export default function JobLinkForm(props) {
     }
     else swal('Please fill up the form', '', 'warning')
     
-=======
-    axios.post(`http://localhost:3000/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
-    .then(()=>{
-      setIsLoading(false);
-      setLinkInput('')
-    })
->>>>>>> delete candidate, add candidate(error fixed), rescrap candidate
   };
   
   return (
