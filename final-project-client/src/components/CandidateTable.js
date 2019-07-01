@@ -1,5 +1,6 @@
 import React from 'react'
 import { FiUserX } from 'react-icons/fi'
+import axios from 'axios'
 
 export default function CandidateTable(props) {
   const {candidates} = props
@@ -12,6 +13,12 @@ export default function CandidateTable(props) {
     if (number > 19) return "23px"
     else if(number > 14) return "20px"
     else return "18px"
+  }
+
+  async function refreshCandidate(id){
+    await axios.get(`http://localhost:3000/candidate/${id}/refresh`, { headers: { 'authorization': localStorage.getItem('token') } })
+
+    props.refreshAll()
   }
   return (
     <div style={{
@@ -42,8 +49,11 @@ export default function CandidateTable(props) {
                     color: colorChooser((Number(el.score)* 100).toFixed(2))
                   }}>{(Number(el.score)* 100).toFixed(2)} %</p></td> : <td><p>Not yet calculated</p></td>}
                   <td>
-                    <button className="btn btn-sm btn-danger">
+                    <button className="btn btn-sm btn-danger" onClick={()=>props.removeCandidate(el._id)}>
                       <FiUserX/>
+                    </button>
+                    <button className="btn btn-sm btn-danger" onClick={()=>refreshCandidate(el.idCandidate)}>
+                      Refresh
                     </button>
                   </td>
                 </tr>

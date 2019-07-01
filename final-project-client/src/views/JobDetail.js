@@ -60,6 +60,8 @@ export default function JobDetail({ match, history }) {
       sortDescendingScore(comparison.data.items);
       result = comparison.data.items.map(item => {
         return {
+          _id: item._id,
+          idCandidate: item.candidate._id, 
           name: item.candidate.name,
           score: item.score
         };
@@ -74,9 +76,13 @@ export default function JobDetail({ match, history }) {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/job/${match.params.id}`, {
-        headers: { authorization: localStorage.getItem("token") }
+    axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
+      .then(async ({ data }) => {
+        setData(data)
+        console.log('sukses');
+        let matching = await axios.get(`http://localhost:3000/match/${data.matching}`, { headers: { 'authorization': localStorage.getItem('token') } })
+        sortScore(matching.data.items)
+        setCandidates(matching.data.items.map(x => { return {_id: x._id, idCandidate: x.candidate._id, name: x.candidate.name, score: x.score}}))
       })
       .then(async ({ data }) => {
         setData(data);
@@ -126,6 +132,19 @@ export default function JobDetail({ match, history }) {
     setIsDescending(true);
   }
 
+  function removeCandidate(id){
+    console.log(id);
+    axios.delete(`http://localhost:3000/matchItem/${id}`, { headers: { 'authorization': localStorage.getItem('token') } })
+    .then(()=>{
+      refresh()
+    })
+    // .
+  }
+
+  function refreshAll(){
+    refresh()
+  }
+
   return (
     <>
       <NavBar />
@@ -171,7 +190,7 @@ export default function JobDetail({ match, history }) {
               <h3 className="mb-4">Candidates:</h3>
               <div className="row">
                 <div className="col col-md-11">
-                  <CandidateTable candidates={candidates} />
+                  <CandidateTable candidates={candidates} removeCandidate={removeCandidate} refreshAll={refreshAll}/>
                 </div>
                 <div className="col col-md-1">
                   {isDescending ? (
