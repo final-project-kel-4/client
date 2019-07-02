@@ -34,7 +34,7 @@ export default function CandidateForm(props) {
           props.onAddCandidate(null);
           setIsSubmiting(true);
         });
-    }else swal('Please fill the form!', '', 'warning')
+    } else swal("Please fill the form!", "", "warning");
   };
   const shakeIt = () => {
     setIsShaking(true);
@@ -51,66 +51,72 @@ export default function CandidateForm(props) {
         </div>
       ) : (
         <form onSubmit={submit}>
-          <div className="form-group">
-            <label
-              htmlFor="candidateLinkInput"
-              style={{
-                fontSize: "20px"
-              }}
-            >
-              Candidate Link Input:
-            </label>
-            <textarea
-              className="form-control"
-              id="candidateLinkInput"
-              rows="6"
-              aria-describedby="inputHelp"
-              onFocus={shakeIt}
-              value={inputCandidate}
-              onChange={e => setInputCandidate(e.target.value)}
-            />
-            {isShaking ? (
-              <Shake>
-                <small
-                  className="form-text"
+          <div className="row">
+            <div className="col col-md-9">
+              <div className="form-group">
+                <label
+                  htmlFor="candidateLinkInput"
                   style={{
-                    fontSize: "18px",
-                    color: "red"
+                    fontSize: "20px"
                   }}
                 >
-                  IMPORTANT!!
-                </small>
-              </Shake>
-            ) : (
-              <small
-                className="form-text"
-                style={{
-                  fontSize: "18px"
-                }}
-              >
-                IMPORTANT!!
-              </small>
-            )}
+                  Candidate Link Input:
+                </label>
+                <textarea
+                  className="form-control"
+                  id="candidateLinkInput"
+                  rows="3"
+                  aria-describedby="inputHelp"
+                  onFocus={shakeIt}
+                  value={inputCandidate}
+                  onChange={e => setInputCandidate(e.target.value)}
+                />
+                {isShaking ? (
+                  <Shake>
+                    <small
+                      className="form-text"
+                      style={{
+                        fontSize: "18px",
+                        color: "red"
+                      }}
+                    >
+                      IMPORTANT!!
+                    </small>
+                  </Shake>
+                ) : (
+                  <small
+                    className="form-text"
+                    style={{
+                      fontSize: "18px"
+                    }}
+                  >
+                    IMPORTANT!!
+                  </small>
+                )}
 
-            <small
-              id="inputHelp"
-              className="form-text text-muted"
-              style={{
-                fontSize: "16px"
-              }}
-            >{`You have to separate the links with <ENTER> key!`}</small>
-          </div>
-          <div className="d-flex justify-content-center">
-            <button
-              className="btn btn-secondary"
-              style={{
-                backgroundColor: "#143D5C",
-                color: "white"
-              }}
-              type="submit"
-            >
-              Submit!
-            </button>
+                <small
+                  id="inputHelp"
+                  className="form-text text-muted"
+                  style={{
+                    fontSize: "16px"
+                  }}
+                >{`You have to separate the links with <ENTER> key!`}</small>
+              </div>
+            </div>
+            <div className="col col-md-3 d-flex align-items-center">
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn btn-secondary"
+                  style={{
+                    backgroundColor: "#143D5C",
+                    color: "white"
+                  }}
+                  type="submit"
+                >
+                  Submit!
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       )}

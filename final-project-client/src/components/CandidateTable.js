@@ -26,7 +26,8 @@ export default function CandidateTable(props) {
     <div
       style={{
         overflow: "scroll",
-        maxHeight: "60vh"
+        maxHeight: "40vh"
+        // height: "40vh"
       }}
     >
       <div
@@ -53,9 +54,7 @@ export default function CandidateTable(props) {
             {candidates.map((el, index) => {
               return (
                 <tr key={index}>
-                  <td><a href="https://www.linkedin.com/in/fahmisutansyah/" target="_blank" rel="noopener noreferrer" style={{
-                    color: "black"
-                  }}>{el.name}</a></td>
+                  <td>{el.name}</td>
                   {el.score > 0 ? (
                     <td>
                       <p
@@ -78,7 +77,7 @@ export default function CandidateTable(props) {
                     </td>
                   )}
                   <td className="text-center" style={{
-                    padding: "0.5rem"
+                    paddingBottom: "-0.5rem"
                   }}>
                       <CandidateTableButtons
                         removeCandidate={props.removeCandidate}
