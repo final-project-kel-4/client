@@ -1,67 +1,98 @@
-import React from 'react'
-import { FiUserX } from 'react-icons/fi'
-import axios from 'axios'
+import React from "react";
+import axios from "axios";
+import CandidateTableButtons from "./CadidateTableButtons";
 
 export default function CandidateTable(props) {
-  const {candidates} = props
-  const colorChooser = (number) =>{
-    if (number > 19) return "green"
-    else if(number > 14) return "black"
-    else return "grey"
-  }
-  const sizeChooser = (number) => {
-    if (number > 19) return "23px"
-    else if(number > 14) return "20px"
-    else return "18px"
-  }
+  const { candidates } = props;
+  const colorChooser = number => {
+    if (number > 19) return "green";
+    else if (number > 14) return "black";
+    else return "grey";
+  };
+  const sizeChooser = number => {
+    if (number > 19) return "23px";
+    else if (number > 14) return "20px";
+    else return "18px";
+  };
 
-  async function refreshCandidate(id){
-    await axios.get(`http://localhost:3000/candidate/${id}/refresh`, { headers: { 'authorization': localStorage.getItem('token') } })
+  async function refreshCandidate(id) {
+    await axios.get(`http://localhost:3000/candidate/${id}/refresh`, {
+      headers: { authorization: localStorage.getItem("token") }
+    });
 
-    props.refreshAll()
+    props.refreshAll();
   }
   return (
-    <div style={{
-      overflow: "scroll",
-      maxHeight: "60vh"
-    }}>
-      <div className="table-responsive" style={{
-        borderRadius: "12px"
-      }}>
+    <div
+      style={{
+        overflow: "scroll",
+        maxHeight: "60vh"
+      }}
+    >
+      <div
+        className="table-responsive"
+        style={{
+          borderRadius: "12px"
+        }}
+      >
         <table className="table table-hover">
-          <thead style={{
-            backgroundColor: "#9ED6D2"
-          }}>
+          <thead
+            style={{
+              backgroundColor: "#9ED6D2"
+            }}
+          >
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Score</th>
-              <th scope="col">Action</th>
+              <th scope="col" colSpan="2" style={{textAlign: "center"}}>
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
-            {candidates.map((el,index)=>{
+            {candidates.map((el, index) => {
               return (
                 <tr key={index}>
-                  <td>{el.name}</td>
-                  {el.score > 0 ? <td><p style={{
-                    fontWeight: "bold",
-                    fontSize: sizeChooser((Number(el.score)* 100).toFixed(2)),
-                    color: colorChooser((Number(el.score)* 100).toFixed(2))
-                  }}>{(Number(el.score)* 100).toFixed(2)} %</p></td> : <td><p>Not yet calculated</p></td>}
-                  <td>
-                    <button className="btn btn-sm btn-danger" onClick={()=>props.removeCandidate(el._id)}>
-                      <FiUserX/>
-                    </button>
-                    <button className="btn btn-sm btn-danger" onClick={()=>refreshCandidate(el.idCandidate)}>
-                      Refresh
-                    </button>
+                  <td><a href="https://www.linkedin.com/in/fahmisutansyah/" target="_blank" rel="noopener noreferrer" style={{
+                    color: "black"
+                  }}>{el.name}</a></td>
+                  {el.score > 0 ? (
+                    <td>
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: sizeChooser(
+                            (Number(el.score) * 100).toFixed(2)
+                          ),
+                          color: colorChooser(
+                            (Number(el.score) * 100).toFixed(2)
+                          )
+                        }}
+                      >
+                        {(Number(el.score) * 100).toFixed(2)} %
+                      </p>
+                    </td>
+                  ) : (
+                    <td>
+                      <p>Not yet calculated</p>
+                    </td>
+                  )}
+                  <td className="text-center" style={{
+                    padding: "0.5rem"
+                  }}>
+                      <CandidateTableButtons
+                        removeCandidate={props.removeCandidate}
+                        _id={el._id}
+                        refreshCandidate={refreshCandidate}
+                        idCandidate={el.idCandidate}
+                      />
                   </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }

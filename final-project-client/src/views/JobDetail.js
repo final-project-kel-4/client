@@ -66,11 +66,12 @@ export default function JobDetail({ match, history }) {
           score: item.score
         };
       });
-
+      console.log('done refreshing')
       setCandidates(result);
     } catch (err) {
       console.log(err);
     } finally {
+      console.log('ganti refreshing parent')
       setIsRefreshing(false);
     }
   };
@@ -78,15 +79,7 @@ export default function JobDetail({ match, history }) {
   useEffect(() => {
     axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
       .then(async ({ data }) => {
-        setData(data)
-        console.log('sukses');
-        let matching = await axios.get(`http://localhost:3000/match/${data.matching}`, { headers: { 'authorization': localStorage.getItem('token') } })
-        sortScore(matching.data.items)
-        setCandidates(matching.data.items.map(x => { return {_id: x._id, idCandidate: x.candidate._id, name: x.candidate.name, score: x.score}}))
-      })
-      .then(async ({ data }) => {
         setData(data);
-        console.log("sukses");
         let matching = await axios.get(
           `http://localhost:3000/match/${data.matching}`,
           { headers: { authorization: localStorage.getItem("token") } }
@@ -94,7 +87,7 @@ export default function JobDetail({ match, history }) {
         sortDescendingScore(matching.data.items);
         setCandidates(
           matching.data.items.map(x => {
-            return { name: x.candidate.name, score: x.score };
+            return { name: x.candidate.name, score: x.score, _id: x._id, idCandidate: x.candidate._id};
           })
         );
       });
@@ -122,18 +115,15 @@ export default function JobDetail({ match, history }) {
   }
 
   function onAddCandidate(result) {
-    console.log("entering jobdetail..", result);
     sortDescendingScore(result.items);
     let list = result.items.map(x => {
       return { ...x, name: x.candidate.name };
     });
-    console.log(list);
     setCandidates(list);
     setIsDescending(true);
   }
 
   function removeCandidate(id){
-    console.log(id);
     axios.delete(`http://localhost:3000/matchItem/${id}`, { headers: { 'authorization': localStorage.getItem('token') } })
     .then(()=>{
       refresh()
@@ -157,8 +147,7 @@ export default function JobDetail({ match, history }) {
                 src={data.company.logo}
                 style={{
                   height: "10vh",
-                  width: "10vh",
-                  borderRadius: "10px"
+                  width: "10vh"
                 }}
               />
             </div>
@@ -191,7 +180,7 @@ export default function JobDetail({ match, history }) {
               <h3 className="mb-4">Candidates:</h3>
               <div className="row">
                 <div className="col col-md-11">
-                  <CandidateTable candidates={candidates} removeCandidate={removeCandidate} refreshAll={refreshAll}/>
+                  <CandidateTable candidates={candidates} removeCandidate={removeCandidate} refreshAll={refreshAll} isRefreshing={isRefreshing}/>
                 </div>
                 <div className="col col-md-1">
                   {isDescending ? (
@@ -206,6 +195,7 @@ export default function JobDetail({ match, history }) {
                     >
                       <FiTrendingUp />
                     </button>
+                   
                   ) : (
                     <button
                       className="btn btn-secondary"
@@ -219,6 +209,15 @@ export default function JobDetail({ match, history }) {
                       <FiTrendingDown />
                     </button>
                   )}
+                   {/* button refresh all */}
+                    <button className="btn btn-secondary"
+                    style={{
+                      backgroundColor: "#143D5C",
+                      fontSize: "9px",
+                      paddingBottom: "9px"
+                    }}>
+                      Refresh all
+                    </button>
                 </div>
               </div>
               <div className="d-flex justify-content-around pt-4">

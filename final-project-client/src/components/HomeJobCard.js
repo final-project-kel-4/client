@@ -3,7 +3,7 @@ import React from 'react'
 export default function HomeJobCard(props) {
   const {company, title} = props.data
   return (
-    <div className='card' style={{
+    <div className='card job-card' style={{
       height: "21rem",
       borderRadius: "10px",
       width: "11rem"
