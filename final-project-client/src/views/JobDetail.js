@@ -67,12 +67,10 @@ export default function JobDetail({ match, history }) {
           score: item.score
         };
       });
-      console.log("done refreshing");
       setCandidates(result);
     } catch (err) {
       console.log(err);
     } finally {
-      console.log("ganti refreshing parent");
       setIsRefreshing(false);
     }
   };
@@ -223,7 +221,7 @@ export default function JobDetail({ match, history }) {
                       <FiTrendingDown />
                     </button>
                   )}
-                  {/* button refresh all */}
+                  {/* button refresh all ================= */}
                   <button
                     className="btn btn-secondary"
                     style={{
