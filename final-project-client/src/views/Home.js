@@ -36,10 +36,6 @@ function Home(props) {
     else fetchData();
   }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, [isInputLoading]);
-
   return (
     <>
       <div>
