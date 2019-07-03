@@ -62,7 +62,8 @@ export default function JobDetail({ match, history }) {
           _id: item._id,
           idCandidate: item.candidate._id,
           name: item.candidate.name,
-          score: item.score
+          score: item.score,
+          scoreDetails: item.scoreDetails
         };
       });
       setCandidates(result);

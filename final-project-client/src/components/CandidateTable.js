@@ -56,7 +56,7 @@ export default function CandidateTable(props) {
               return (
                 <tr key={index}>
                   <td>{el.name}</td>
-                  {el.score > 0 ? (
+                  {el.scoreDetails ? (
                     <td>
                       <OverlayTrigger
                         placement="right-end"
