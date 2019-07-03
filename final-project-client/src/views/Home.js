@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import JobLinkForm from "../components/JobLinkForm";
 import HomeJobCard from "../components/HomeJobCard";
-import RefreshButtonFooter from '../components/RefreshButtonFooter'
 import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 
 function Home(props) {
-  const { statusLogin } = props;
+  const {statusLogin} = props;
   const [jobData, setJobData] = useState([]);
   const [isInputLoading, setIsInputLoading] = useState(false);
   const [linkInput, setLinkInput] = useState("");
@@ -25,7 +24,7 @@ function Home(props) {
   }
 
   useEffect(() => {
-    if(!localStorage.token) props.history.push("/login")
+    if(!statusLogin) props.history.push("/login")
     else fetchData();
   }, []);
 
