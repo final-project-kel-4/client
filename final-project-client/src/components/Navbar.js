@@ -17,10 +17,11 @@ function Navbar(props) {
       dangerMode: true
     }).then(confirm => {
       if (confirm) {
+        localStorage.removeItem('token')
         props.setLogin(false)
         props.history.push("/login")
         swal("Bye-bye",'Hope to see you soon', "success")
-        localStorage.removeItem('token')
+        props.history.push('/login')
       }
     });
   }

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './views/Home'
 import Login from './views/Login'
 import JobDetail from './views/JobDetail'
+import Print from './views/Print'
 import './App.css';
 
 function App() {
@@ -13,9 +14,10 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/login" exact component={Login} />
           <Route path="/" exact component={Home} />
-          <Route path="/job/:id" exact component={JobDetail} />
+          <Route path="/login" component={Login} />
+          <Route path="/job/:id" component={JobDetail} />
+          <Route path="/print/:id" component={Print} />
         </Switch>
       </Router>
     </Provider>

@@ -269,6 +269,17 @@ export default function JobDetail({ match, history }) {
                     Back To Home
                   </button>
                 </Link>
+                <Link to={{pathname:`/print/${match.params.id}`, state: { dataReport: data, candidates: candidates}}}>
+                  <button
+                    className="btn btn-secondary"
+                    style={{
+                      backgroundColor: "#143D5C",
+                      color: "white"
+                    }}
+                  >
+                    Report
+                  </button>
+                </Link>
               </div>
               <div className="pt-2 pl-1">
                 <CandidateForm
