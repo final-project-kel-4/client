@@ -32,7 +32,9 @@ export default function CadidateTableButtons(props) {
   return (
     <>
       {isRefreshing ? (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center" style={{
+          overflow: "hidden"
+        }}>
           <GooSpinner size={50} color="#9ED6D2" />
         </div>
       ) : (

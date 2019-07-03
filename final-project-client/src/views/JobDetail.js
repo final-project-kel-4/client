@@ -49,19 +49,15 @@ export default function JobDetail({ match, history }) {
   const refresh = async e => {
     let comparison;
     if (e) e.preventDefault();
-    setIsRefreshing(true);
-    try {
-      comparison = await axios.get(
-        `http://localhost:3000/match/${data.matching}/refresh`,
-        { headers: { authorization: localStorage.getItem("token") } }
-      );
-      let result = [];
-
-      console.log("MASUK SINI 22222");
-      
-      if (comparison.data.items.lenght > 1) {
+    if (candidates.length > 0) {
+      setIsRefreshing(true);
+      try {
+        comparison = await axios.get(
+          `http://localhost:3000/match/${data.matching}/refresh`,
+          { headers: { authorization: localStorage.getItem("token") } }
+        );
+        let result = [];
         sortDescendingScore(comparison.data.items);
-
         result = comparison.data.items.map(item => {
           return {
             _id: item._id,
@@ -69,19 +65,18 @@ export default function JobDetail({ match, history }) {
             name: item.candidate.name,
             score: item.score,
             scoreDetails: item.scoreDetails,
-            linkedinURL: item.candidate.linkedinURL,
+            linkedinURL: item.candidate.linkedinURL
           };
         });
 
         setCandidates(result);
-      }else{
-        setCandidates([]);
-
+      } catch (err) {
+        swal("Error Occured", "Something went wrong..", "error");
+      } finally {
+        setIsRefreshing(false);
       }
-    } catch (err) {
-      swal("Error Occured", "Something went wrong..", "error")
-    } finally {
-      setIsRefreshing(false);
+    }else{
+      swal("No candidates", "", "info")
     }
   };
 
@@ -109,7 +104,7 @@ export default function JobDetail({ match, history }) {
               _id: x._id,
               idCandidate: x.candidate._id,
               scoreDetails: x.scoreDetails,
-              linkedinURL: x.candidate.linkedinURL,
+              linkedinURL: x.candidate.linkedinURL
             };
           })
         );
@@ -146,17 +141,17 @@ export default function JobDetail({ match, history }) {
     setIsDescending(true);
   }
 
-  function removeCandidate(id) {    
+  function removeCandidate(id) {
     axios
       .delete(`http://localhost:3000/matchItem/${id}`, {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(() => {
         setCandidates(
-          candidates.filter(el=>{
-            return el._id!=id
+          candidates.filter(el => {
+            return el._id != id;
           })
-        )
+        );
       });
   }
 
@@ -194,13 +189,15 @@ export default function JobDetail({ match, history }) {
               </button>
             </div>
             {/* description =========================== */}
-            <div className="description mt-3" style={{
-              height: "47vh",
-              overflow: "scroll",
-            }}>
+            <div
+              className="description mt-3"
+              style={{
+                height: "47vh",
+                overflow: "scroll"
+              }}
+            >
               <div dangerouslySetInnerHTML={{ __html: data.rawHtml }} />
             </div>
-
           </div>
           <div className="col col-md-7">
             <div className="d-flex justify-content-center flex-column container-fluid">
@@ -228,18 +225,18 @@ export default function JobDetail({ match, history }) {
                       <FiTrendingUp />
                     </button>
                   ) : (
-                      <button
-                        className="btn btn-secondary"
-                        style={{
-                          backgroundColor: "#143D5C",
-                          fontSize: "17px",
-                          paddingBottom: "9px"
-                        }}
-                        onClick={sort}
-                      >
-                        <FiTrendingDown />
-                      </button>
-                    )}
+                    <button
+                      className="btn btn-secondary"
+                      style={{
+                        backgroundColor: "#143D5C",
+                        fontSize: "17px",
+                        paddingBottom: "9px"
+                      }}
+                      onClick={sort}
+                    >
+                      <FiTrendingDown />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -247,18 +244,18 @@ export default function JobDetail({ match, history }) {
                 {isRefreshing ? (
                   <GooSpinner size={70} color="#9ED6D2" />
                 ) : (
-                    <button
-                      className="btn btn-light"
-                      style={{
-                        backgroundColor: "#9ED6D2",
-                        fontSize: "16px",
-                        paddingBottom: "9px"
-                      }}
-                      onClick={refresh}
-                    >
-                      <FiRefreshCcw /> Calculate!
+                  <button
+                    className="btn btn-light"
+                    style={{
+                      backgroundColor: "#9ED6D2",
+                      fontSize: "16px",
+                      paddingBottom: "9px"
+                    }}
+                    onClick={refresh}
+                  >
+                    <FiRefreshCcw /> Calculate!
                   </button>
-                  )}
+                )}
                 <Link to="/">
                   <button
                     className="btn btn-secondary"
@@ -276,7 +273,12 @@ export default function JobDetail({ match, history }) {
                     Back To Home
                   </button>
                 </Link>
-                <Link to={{ pathname: `/print/${match.params.id}`, state: { dataReport: data, candidates: candidates } }}>
+                <Link
+                  to={{
+                    pathname: `/print/${match.params.id}`,
+                    state: { dataReport: data, candidates: candidates }
+                  }}
+                >
                   <button
                     className="btn btn-light"
                     style={{

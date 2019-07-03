@@ -12,9 +12,10 @@ export default function JobLinkForm(props) {
       setIsLoading(true);
 
       axios.post(`http://localhost:3000/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
-      .then(()=>{
+      .then(({ data })=>{
         setIsLoading(false);
         setLinkInput('')
+        props.onAddDone(data)
       })
       .catch(err=>{
         swal("Error Occured", "You did not input a valid LinkeIn link.","error")
@@ -51,7 +52,7 @@ export default function JobLinkForm(props) {
             />
           )}
         </div>
-        <div className="d-flex justify-content-around">
+        <div className="d-flex justify-content-center">
           <button
             className="btn btn-secondary"
             style={{
@@ -61,15 +62,6 @@ export default function JobLinkForm(props) {
             type="submit"
           >
             Submit
-          </button>
-          <button className="btn btn-light"
-           style={{
-            fontSize: "20px",
-            backgroundColor: '#EDF5F7'
-          }}
-          type="submit"
-        >
-          Refresh All Job
           </button>
         </div>
       </form>

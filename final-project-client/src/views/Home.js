@@ -20,6 +20,10 @@ function Home(props) {
   const [isInputLoading, setIsInputLoading] = useState(false);
   const [linkInput, setLinkInput] = useState("");
 
+  function onAddDone(data) {
+    setJobData([data,...jobData])
+  }
+
   function fetchData() {
     console.log("fetching jobs...");
     axios
@@ -53,6 +57,7 @@ function Home(props) {
                 setIsLoading: setIsInputLoading
               }}
               linkInput={{ linkInput, setLinkInput }}
+              onAddDone={onAddDone}
             />
           </div>
           { jobData.length > 0 ? <div className="row pt-4 d-flex justify-content-center">
