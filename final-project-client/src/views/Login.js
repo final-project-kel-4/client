@@ -14,7 +14,7 @@ const FadeIn = styled.div`
 function Login(props) {
   const { statusLogin } = props;
   useEffect(()=>{
-    if(statusLogin) props.history.push('/')
+    if(localStorage.token) props.history.push('/')
   },[])
   return (
     <>

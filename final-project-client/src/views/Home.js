@@ -9,7 +9,6 @@ import axios from "axios";
 function Home(props) {
   const { statusLogin } = props;
   const [jobData, setJobData] = useState([]);
-
   const [isInputLoading, setIsInputLoading] = useState(false);
   const [linkInput, setLinkInput] = useState("");
 
@@ -26,7 +25,7 @@ function Home(props) {
   }
 
   useEffect(() => {
-    if(!statusLogin) props.history.push("/login")
+    if(!localStorage.token) props.history.push("/login")
     else fetchData();
   }, []);
 

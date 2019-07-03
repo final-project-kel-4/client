@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "axios";
 import CandidateTableButtons from "./CadidateTableButtons";
+import { OverlayTrigger } from 'react-bootstrap';
 
 export default function CandidateTable(props) {
+  console.log(props)
   const { candidates } = props;
   const colorChooser = number => {
     if (number > 19) return "green";
@@ -57,19 +59,60 @@ export default function CandidateTable(props) {
                   <td>{el.name}</td>
                   {el.score > 0 ? (
                     <td>
-                      <p
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: sizeChooser(
-                            (Number(el.score) * 100).toFixed(2)
-                          ),
-                          color: colorChooser(
-                            (Number(el.score) * 100).toFixed(2)
-                          )
-                        }}
+                      <OverlayTrigger
+                        placement="right-end"
+                        delay={{ show: 100, hide: 200 }}
+                        overlay={(<div style={{
+                          backgroundColor: "#e4eff2",
+                          borderRadius: "5px"
+                        }} className="d-flex justify-content-start flex-column px-1">
+                          <table className="table table-borderless table-responsive">
+                            <thead>
+                              <tr>
+                                <th scope="col">Area</th>
+                                <th scope="cole">Score</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">Experience</th>
+                                <td align="right">{(Number(el.scoreDetails.experience) * 100).toFixed(2)}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Skills</th>
+                                <td align="right">{(Number(el.scoreDetails.skill) * 100).toFixed(2)}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Current Position</th>
+                                <td align="right">{(Number(el.scoreDetails.currentPosition) * 100).toFixed(2)}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Education</th>
+                                <td align="right">{(Number(el.scoreDetails.educations) * 100).toFixed(2)}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">About</th>
+                                <td align="right">{(Number(el.scoreDetails.about) * 100).toFixed(2)}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>)}
                       >
-                        {(Number(el.score) * 100).toFixed(2)} %
-                      </p>
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: sizeChooser(
+                              (Number(el.score) * 100).toFixed(2)
+                            ),
+                            color: colorChooser(
+                              (Number(el.score) * 100).toFixed(2)
+                            )
+                          }}
+                        >
+                          {(Number(el.score) * 100).toFixed(2)} %
+                        </p>
+
+                      </OverlayTrigger>
                     </td>
                   ) : (
                     <td>

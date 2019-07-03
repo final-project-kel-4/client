@@ -86,6 +86,7 @@ export default function JobDetail({ match, history }) {
           `http://localhost:3000/match/${data.matching}`,
           { headers: { authorization: localStorage.getItem("token") } }
         );
+        
         sortDescendingScore(matching.data.items);
         setCandidates(
           matching.data.items.map(x => {
@@ -93,7 +94,8 @@ export default function JobDetail({ match, history }) {
               name: x.candidate.name,
               score: x.score,
               _id: x._id,
-              idCandidate: x.candidate._id
+              idCandidate: x.candidate._id,
+              scoreDetails: x.scoreDetails
             };
           })
         );
