@@ -176,7 +176,7 @@ export default function JobDetail({ match, history }) {
             </div>
             {/* description =========================== */}
             <div className="description mt-3" style={{
-              height: "43vh",
+              height: "47vh",
               overflow:"scroll",
             }}>
               <div dangerouslySetInnerHTML={{__html: data.rawHtml}}/>

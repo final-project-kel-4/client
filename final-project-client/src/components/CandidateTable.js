@@ -27,8 +27,8 @@ export default function CandidateTable(props) {
     <div
       style={{
         overflow: "scroll",
-        maxHeight: "40vh"
-        // height: "40vh"
+        // maxHeight: "40vh"
+        height: "40vh"
       }}
     >
       <div
