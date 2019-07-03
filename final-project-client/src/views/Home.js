@@ -19,7 +19,6 @@ function Home(props) {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(({ data }) => {
-        console.log(data);
         setJobData(data);
       });
   }

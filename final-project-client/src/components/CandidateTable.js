@@ -4,7 +4,6 @@ import CandidateTableButtons from "./CadidateTableButtons";
 import { OverlayTrigger } from 'react-bootstrap';
 
 export default function CandidateTable(props) {
-  console.log(props)
   const { candidates } = props;
   const colorChooser = number => {
     if (number > 19) return "green";
