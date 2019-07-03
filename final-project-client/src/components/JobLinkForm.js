@@ -47,7 +47,7 @@ export default function JobLinkForm(props) {
             />
           )}
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-around">
           <button
             className="btn btn-secondary"
             style={{
@@ -57,6 +57,15 @@ export default function JobLinkForm(props) {
             type="submit"
           >
             Submit
+          </button>
+          <button className="btn btn-light"
+           style={{
+            fontSize: "20px",
+            backgroundColor: '#EDF5F7'
+          }}
+          type="submit"
+        >
+          Refresh All Job
           </button>
         </div>
       </form>

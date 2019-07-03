@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 
 function Home(props) {
-  const { statusLogin } = props;
+  const {statusLogin} = props;
   const [jobData, setJobData] = useState([]);
   const [isInputLoading, setIsInputLoading] = useState(false);
   const [linkInput, setLinkInput] = useState("");
@@ -24,7 +24,7 @@ function Home(props) {
   }
 
   useEffect(() => {
-    if(!localStorage.token) props.history.push("/login")
+    if(!statusLogin) props.history.push("/login")
     else fetchData();
   }, []);
 

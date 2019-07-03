@@ -46,7 +46,7 @@ export default function CandidateForm(props) {
   return (
     <>
       {isSubmiting ? (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center mt-4">
           <RotateSpinner size={50} color="#143D5C" />
         </div>
       ) : (

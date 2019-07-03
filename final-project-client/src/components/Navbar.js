@@ -43,7 +43,7 @@ function Navbar(props) {
         }}/>
         </div>
       </Link>
-      
+    
       {
         props.statusLogin && <button className="btn btn-outline-info" style={{
           backgroundColor: "#143D5C",
