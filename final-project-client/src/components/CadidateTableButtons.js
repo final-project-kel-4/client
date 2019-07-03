@@ -14,6 +14,19 @@ export default function CadidateTableButtons(props) {
     name
   } = props;
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const removeConfirmation = () =>{
+    swal({
+      title: `Are you sure to delete ${name}?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true
+    }).then(async confirm => {
+      if (confirm) {
+        removeCandidate(_id)
+      }
+    });
+  }
   const refresh = () => {
     swal({
       title: "Are you sure to refresh this candidate?",
@@ -51,7 +64,7 @@ export default function CadidateTableButtons(props) {
               Delete {name}
             </div>}
           >
-            <button className="btn btn-sm btn-danger mx-1" onClick={() => removeCandidate(_id)}>
+            <button className="btn btn-sm btn-danger mx-1" onClick={removeConfirmation}>
               <FiUserX />
             </button>
           </OverlayTrigger>
