@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import JobLinkForm from "../components/JobLinkForm";
 import HomeJobCard from "../components/HomeJobCard";
+import styled, { keyframes } from 'styled-components';
+import { flash } from 'react-animations';
 import { connect } from "react-redux";
 import { ClapSpinner } from "react-spinners-kit"
 import Navbar from "../components/Navbar";
 import axios from "axios";
 
+const flashAnimation = keyframes`${flash}`;
+const FlashingDiv = styled.div`
+  animation: 2s ${flashAnimation};
+`
+ 
 function Home(props) {
   const {statusLogin} = props;
   const [jobData, setJobData] = useState([]);
@@ -70,10 +77,15 @@ function Home(props) {
               );
             })}
           </div> : 
-          <div className="d-flex justify-content-center" style={{
+          <div className="d-flex flex-column" style={{
             paddingTop: "10vh"
           }}>
-            <ClapSpinner size={70} frontColor="#9ED6D2" backColor="#143D5C"/>
+            <div className="d-flex justify-content-center">
+              <ClapSpinner size={70} frontColor="#9ED6D2" backColor="#143D5C"/>
+            </div>
+            <FlashingDiv>
+              <h2 className="text-center pt-4">Loading your jobs...</h2>
+            </FlashingDiv>
           </div>
         }
           
