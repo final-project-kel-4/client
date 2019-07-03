@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import JobLinkForm from "../components/JobLinkForm";
 import HomeJobCard from "../components/HomeJobCard";
+import RefreshButtonFooter from '../components/RefreshButtonFooter'
 import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import axios from "axios";
@@ -36,7 +37,7 @@ function Home(props) {
     <>
       <div>
         <Navbar />
-        <div className="container">
+        <div className="container d-flex flex-column">
           <div
             className="row d-flex justify-content-center"
             style={{
