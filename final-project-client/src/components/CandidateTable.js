@@ -6,13 +6,13 @@ import { OverlayTrigger } from 'react-bootstrap';
 export default function CandidateTable(props) {
   const { candidates } = props;
   const colorChooser = number => {
-    if (number > 19) return "green";
-    else if (number > 14) return "black";
+    if (number >= 50) return "green";
+    else if (number > 20) return "black";
     else return "grey";
   };
   const sizeChooser = number => {
-    if (number > 19) return "23px";
-    else if (number > 14) return "20px";
+    if (number >= 50) return "23px";
+    else if (number > 20) return "20px";
     else return "18px";
   };
 
