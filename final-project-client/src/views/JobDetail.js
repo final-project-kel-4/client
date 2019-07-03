@@ -192,7 +192,7 @@ export default function JobDetail({ match, history }) {
             <div
               className="description mt-3"
               style={{
-                height: "47vh",
+                height: "50vh",
                 overflow: "scroll"
               }}
             >
