@@ -227,17 +227,6 @@ export default function JobDetail({ match, history }) {
                       <FiTrendingDown />
                     </button>
                   )}
-                  {/* button refresh all ================= */}
-                  <button
-                    className="btn btn-secondary"
-                    style={{
-                      backgroundColor: "#143D5C",
-                      fontSize: "9px",
-                      paddingBottom: "9px"
-                    }}
-                  >
-                    Refresh all
-                  </button>
                 </div>
               </div>
 
