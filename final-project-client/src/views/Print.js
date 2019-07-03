@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Page, Text, View, Document, StyleSheet, Image, PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
+import dateFormat  from 'dateformat'
+const now = new Date();
 
 // Create styles
 const styles = StyleSheet.create({
@@ -43,7 +45,7 @@ const Documents = ({ data, candidates }) => (
             }} />
           </View>
         </View>
-        <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent:'space-between'}}>
           <View style={{ display: 'flex', flexDirection: 'row' }}>
             <Image
               alt="Not found"
@@ -58,6 +60,9 @@ const Documents = ({ data, candidates }) => (
               <Text style={{ marginLeft: '10px', fontSize: 13, marginBottom: '5px' }}>{data.title}</Text>
               <Text style={{ marginLeft: '10px', fontSize: 12, marginBottom: '5px' }}>{data.company.address}</Text>
             </View>
+          </View>
+          <View>
+            <Text style={{fontSize:11}}>{dateFormat(now)}</Text>
           </View>
         </View>
         <View style={{ marginTop: '20px' }}>
@@ -152,12 +157,12 @@ export default function MyDocument({ match, location }) {
 
   return (
     <div>
-      {/* <PDFViewer style={{ width: '100%', height: '500px' }}>
+      <PDFViewer style={{ width: '100%', height: '100vh' }}>
         <Documents data={data} candidates={candidates} />
-      </PDFViewer> */}
-      <PDFDownloadLink document={<Documents data={data} candidates={candidates} />} fileName={`${data.company.name}-${data.title}.pdf`}>
+      </PDFViewer>
+      {/* <PDFDownloadLink document={<Documents data={data} candidates={candidates} />} fileName={`${data.company.name}-${data.title}.pdf`}>
         {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now! '+url )}
-      </PDFDownloadLink>
+      </PDFDownloadLink> */}
     </div>
   )
 };

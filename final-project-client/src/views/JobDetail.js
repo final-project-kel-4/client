@@ -63,7 +63,8 @@ export default function JobDetail({ match, history }) {
           idCandidate: item.candidate._id,
           name: item.candidate.name,
           score: item.score,
-          scoreDetails: item.scoreDetails
+          scoreDetails: item.scoreDetails,
+          linkedinURL: item.candidate.linkedinURL,
         };
       });
       setCandidates(result);
@@ -89,12 +90,16 @@ export default function JobDetail({ match, history }) {
         sortDescendingScore(matching.data.items);
         setCandidates(
           matching.data.items.map(x => {
+            console.log("_____________________",x);
+            console.log("_____________________",x.candidate.linkedinURL);
+            
             return {
               name: x.candidate.name,
               score: x.score,
               _id: x._id,
               idCandidate: x.candidate._id,
-              scoreDetails: x.scoreDetails
+              scoreDetails: x.scoreDetails,
+              linkedinURL: x.candidate.linkedinURL,
             };
           })
         );

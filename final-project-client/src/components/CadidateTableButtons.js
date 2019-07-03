@@ -9,6 +9,7 @@ export default function CadidateTableButtons(props) {
     _id,
     refreshCandidate,
     idCandidate,
+    linkedinURL
   } = props;
   const [isRefreshing, setIsRefreshing] = useState(false);
   const refresh = () => {
@@ -58,7 +59,7 @@ export default function CadidateTableButtons(props) {
               fontSize: "16px",
               paddingBottom: "6px"
             }}>
-            <a href="https://www.linkedin.com/in/fahmisutansyah/" target="_blank" rel="noopener noreferrer">
+            <a href={linkedinURL} target="_blank" rel="noopener noreferrer">
               <TiSocialLinkedin/>
             </a>
           </button>

@@ -126,6 +126,8 @@ export default function CandidateTable(props) {
                         _id={el._id}
                         refreshCandidate={refreshCandidate}
                         idCandidate={el.idCandidate}
+                        datas={el}
+                        linkedinURL={el.linkedinURL}
                       />
                   </td>
                 </tr>
