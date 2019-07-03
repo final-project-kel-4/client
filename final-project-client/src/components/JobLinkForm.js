@@ -16,6 +16,10 @@ export default function JobLinkForm(props) {
         setIsLoading(false);
         setLinkInput('')
       })
+      .catch(err=>{
+        swal("Error Occured", "You did not input a valid LinkeIn link.","error")
+        setIsLoading(false)
+      })
     }
     else swal('Please fill up the form', '', 'warning')
     

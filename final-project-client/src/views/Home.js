@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import JobLinkForm from "../components/JobLinkForm";
 import HomeJobCard from "../components/HomeJobCard";
 import { connect } from "react-redux";
+import { ClapSpinner } from "react-spinners-kit"
 import Navbar from "../components/Navbar";
 import axios from "axios";
 
@@ -51,7 +52,7 @@ function Home(props) {
               linkInput={{ linkInput, setLinkInput }}
             />
           </div>
-          <div className="row pt-4 d-flex justify-content-center">
+          { jobData.length > 0 ? <div className="row pt-4 d-flex justify-content-center">
             {jobData.map((el, index) => {
               return (
                 <Link
@@ -68,7 +69,14 @@ function Home(props) {
                 </Link>
               );
             })}
+          </div> : 
+          <div className="d-flex justify-content-center" style={{
+            paddingTop: "10vh"
+          }}>
+            <ClapSpinner size={70} frontColor="#9ED6D2" backColor="#143D5C"/>
           </div>
+        }
+          
         </div>
       </div>
     </>

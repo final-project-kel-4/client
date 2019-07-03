@@ -7,7 +7,8 @@ import {
   FiRefreshCcw,
   FiHome,
   FiTrendingUp,
-  FiTrendingDown
+  FiTrendingDown,
+  FiPrinter
 } from "react-icons/fi";
 import CandidateTable from "../components/CandidateTable";
 import { GooSpinner } from "react-spinners-kit";
@@ -69,7 +70,7 @@ export default function JobDetail({ match, history }) {
       });
       setCandidates(result);
     } catch (err) {
-      console.log(err);
+      swal("Error Occured", "Something went wrong..","error")
     } finally {
       setIsRefreshing(false);
     }
@@ -235,7 +236,7 @@ export default function JobDetail({ match, history }) {
                   <GooSpinner size={70} color="#9ED6D2" />
                 ) : (
                   <button
-                    className="btn"
+                    className="btn btn-light"
                     style={{
                       backgroundColor: "#9ED6D2",
                       fontSize: "16px",
@@ -265,13 +266,13 @@ export default function JobDetail({ match, history }) {
                 </Link>
                 <Link to={{pathname:`/print/${match.params.id}`, state: { dataReport: data, candidates: candidates}}}>
                   <button
-                    className="btn btn-secondary"
+                    className="btn btn-light"
                     style={{
-                      backgroundColor: "#143D5C",
-                      color: "white"
+                      backgroundColor: "#9ED6D2",
+                      color: "black"
                     }}
                   >
-                    Report
+                    <FiPrinter/> Print A Report
                   </button>
                 </Link>
               </div>
