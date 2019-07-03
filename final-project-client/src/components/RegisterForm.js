@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiMail, FiLock, FiUser } from "react-icons/fi";
+import { FiMail, FiLock, FiUser,FiBriefcase } from "react-icons/fi";
 import styled, { keyframes } from "styled-components";
 import { slideInRight, slideOutRight } from "react-animations";
 import axios from "axios";
@@ -18,6 +18,8 @@ export default function RegisterForm(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [company, setCompany] = useState("");
+
   const { setIsRegistring } = props.registring;
   const { isNavigatingToLogin, setIsNavigatingToLogin } = props.navigations;
   const navigator = e => {
@@ -36,6 +38,7 @@ export default function RegisterForm(props) {
     setName("");
     setEmail("");
     setPassword("");
+    setCompany("");
   }
 
   function register(e) {
@@ -43,9 +46,9 @@ export default function RegisterForm(props) {
       e.preventDefault();
     }
 
-    if (name && email && password) {
+    if (name && email && password && company) {
       axios
-        .post(`http://localhost:3000/user/signup`, { name, email, password })
+        .post(`http://localhost:3000/user/signup`, { name, email, password, company })
         .then(() => {
           swal("Signup success", "Now you may log in", "success");
           reset();
@@ -96,6 +99,41 @@ export default function RegisterForm(props) {
                     }}
                     value={name}
                     onChange={e => setName(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: "#EFF2F5",
+                borderTopLeftRadius: "10px",
+                borderTopRightRadius: "10px",
+                paddingTop: "18px",
+                width: "400px"
+              }}
+              className="row px-3"
+            >
+              <div className="col col-md-2">
+                <FiBriefcase
+                  style={{
+                    fontSize: "33px",
+                    color: "grey"
+                  }}
+                />
+              </div>
+              <div className="col col-md-10">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="companyInput"
+                    aria-describedby="emailHelp"
+                    placeholder="Your Company LinkedIn URL"
+                    style={{
+                      width: "250px"
+                    }}
+                    value={company}
+                    onChange={e => setCompany(e.target.value)}
                   />
                 </div>
               </div>
