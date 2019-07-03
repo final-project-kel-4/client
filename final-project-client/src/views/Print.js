@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Page, Text, View, Document, StyleSheet, Image, PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import dateFormat  from 'dateformat'
 const now = new Date();
@@ -77,16 +77,16 @@ const Documents = ({ data, candidates }) => (
               <Text>AS</Text>
             </View>
             <View style={{ ...styles.tableTitle, width: 50 }}>
-              <Text>ExpS</Text>
-            </View>
-            <View style={{ ...styles.tableTitle, width: 50 }}>
               <Text>CPS</Text>
             </View>
             <View style={{ ...styles.tableTitle, width: 50 }}>
-              <Text>SS</Text>
+              <Text>EduS</Text>
             </View>
             <View style={{ ...styles.tableTitle, width: 50 }}>
-              <Text>EduS</Text>
+              <Text>ExpS</Text>
+            </View>
+            <View style={{ ...styles.tableTitle, width: 50 }}>
+              <Text>SS</Text>
             </View>
             <View style={{ ...styles.tableTitle, width: 90 }}>
               <Text>Total Score</Text>
@@ -104,19 +104,19 @@ const Documents = ({ data, candidates }) => (
                       <Text>{el.name}</Text>
                     </View>
                     <View style={{ ...styles.tableBody, width: 50 }}>
-                      <Text>Nan</Text>
+                      <Text>{(Number(el.scoreDetails.about) * 100).toFixed(2)} %</Text>
                     </View>
                     <View style={{ ...styles.tableBody, width: 50 }}>
-                      <Text>Nan</Text>
+                      <Text>{(Number(el.scoreDetails.currentPosition) * 100).toFixed(2)} %</Text>
                     </View>
                     <View style={{ ...styles.tableBody, width: 50 }}>
-                      <Text>Nan</Text>
+                      <Text>{(Number(el.scoreDetails.educations) * 100).toFixed(2)} %</Text>
                     </View>
                     <View style={{ ...styles.tableBody, width: 50 }}>
-                      <Text>Nan</Text>
+                      <Text>{(Number(el.scoreDetails.experience) * 100).toFixed(2)} %</Text>
                     </View>
                     <View style={{ ...styles.tableBody, width: 50 }}>
-                      <Text>Nan</Text>
+                      <Text>{(Number(el.scoreDetails.skill) * 100).toFixed(2)} %</Text>
                     </View>
                     <View style={{ ...styles.tableBody, width: 90 }}>
                       <Text>{(Number(el.score) * 100).toFixed(2)} %</Text>
@@ -129,10 +129,10 @@ const Documents = ({ data, candidates }) => (
           <View style={{ fontSize: 10 }}>
             <Text>Information</Text>
             <Text>1. AS = About Score</Text>
-            <Text>2. ExpS = Experience Score</Text>
-            <Text>3. CPS = Current Position Score</Text>
-            <Text>4. SS = Skill Score</Text>
-            <Text>5. EduS = Education Score</Text>
+            <Text>2. CPS = Current Position Score</Text>
+            <Text>3. EduS = Education Score</Text>
+            <Text>4. ExpS = Experience Score</Text>
+            <Text>5. SS = Skill Score</Text>
           </View>
         </View>
       </View>
@@ -149,11 +149,11 @@ export default function MyDocument({ match, location }) {
   const [data, setData] = useState(location.state.dataReport);
   const [candidates, setCandidates] = useState(location.state.candidates);
 
-  // useEffect(() => {
-  //   // console.log("match ", match.params.id);
-  //   console.log(location.state.dataReport)
-  //   console.log(location.state.candidates)
-  // }, [match.params.id]);
+  useEffect(() => {
+    // console.log("match ", match.params.id);
+    // console.log(location.state.dataReport)
+    console.log(location.state.candidates)
+  }, [match.params.id]);
 
   return (
     <div>
