@@ -57,20 +57,29 @@ export default function JobDetail({ match, history }) {
       );
       let result = [];
 
-      sortDescendingScore(comparison.data.items);
-      result = comparison.data.items.map(item => {
-        return {
-          _id: item._id,
-          idCandidate: item.candidate._id,
-          name: item.candidate.name,
-          score: item.score,
-          scoreDetails: item.scoreDetails,
-          linkedinURL: item.candidate.linkedinURL,
-        };
-      });
-      setCandidates(result);
+      console.log("MASUK SINI 22222");
+      
+      if (comparison.data.items.lenght > 1) {
+        sortDescendingScore(comparison.data.items);
+
+        result = comparison.data.items.map(item => {
+          return {
+            _id: item._id,
+            idCandidate: item.candidate._id,
+            name: item.candidate.name,
+            score: item.score,
+            scoreDetails: item.scoreDetails,
+            linkedinURL: item.candidate.linkedinURL,
+          };
+        });
+
+        setCandidates(result);
+      }else{
+        setCandidates([]);
+
+      }
     } catch (err) {
-      swal("Error Occured", "Something went wrong..","error")
+      swal("Error Occured", "Something went wrong..", "error")
     } finally {
       setIsRefreshing(false);
     }
@@ -87,13 +96,13 @@ export default function JobDetail({ match, history }) {
           `http://localhost:3000/match/${data.matching}`,
           { headers: { authorization: localStorage.getItem("token") } }
         );
-        
+
         sortDescendingScore(matching.data.items);
         setCandidates(
           matching.data.items.map(x => {
-            console.log("_____________________",x);
-            console.log("_____________________",x.candidate.linkedinURL);
-            
+            console.log("_____________________", x);
+            console.log("_____________________", x.candidate.linkedinURL);
+
             return {
               name: x.candidate.name,
               score: x.score,
@@ -137,15 +146,18 @@ export default function JobDetail({ match, history }) {
     setIsDescending(true);
   }
 
-  function removeCandidate(id) {
+  function removeCandidate(id) {    
     axios
       .delete(`http://localhost:3000/matchItem/${id}`, {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(() => {
-        refresh();
+        setCandidates(
+          candidates.filter(el=>{
+            return el._id!=id
+          })
+        )
       });
-    // .
   }
 
   function refreshAll() {
@@ -184,9 +196,9 @@ export default function JobDetail({ match, history }) {
             {/* description =========================== */}
             <div className="description mt-3" style={{
               height: "47vh",
-              overflow:"scroll",
+              overflow: "scroll",
             }}>
-              <div dangerouslySetInnerHTML={{__html: data.rawHtml}}/>
+              <div dangerouslySetInnerHTML={{ __html: data.rawHtml }} />
             </div>
 
           </div>
@@ -216,18 +228,18 @@ export default function JobDetail({ match, history }) {
                       <FiTrendingUp />
                     </button>
                   ) : (
-                    <button
-                      className="btn btn-secondary"
-                      style={{
-                        backgroundColor: "#143D5C",
-                        fontSize: "17px",
-                        paddingBottom: "9px"
-                      }}
-                      onClick={sort}
-                    >
-                      <FiTrendingDown />
-                    </button>
-                  )}
+                      <button
+                        className="btn btn-secondary"
+                        style={{
+                          backgroundColor: "#143D5C",
+                          fontSize: "17px",
+                          paddingBottom: "9px"
+                        }}
+                        onClick={sort}
+                      >
+                        <FiTrendingDown />
+                      </button>
+                    )}
                 </div>
               </div>
 
@@ -235,18 +247,18 @@ export default function JobDetail({ match, history }) {
                 {isRefreshing ? (
                   <GooSpinner size={70} color="#9ED6D2" />
                 ) : (
-                  <button
-                    className="btn btn-light"
-                    style={{
-                      backgroundColor: "#9ED6D2",
-                      fontSize: "16px",
-                      paddingBottom: "9px"
-                    }}
-                    onClick={refresh}
-                  >
-                    <FiRefreshCcw /> Calculate!
+                    <button
+                      className="btn btn-light"
+                      style={{
+                        backgroundColor: "#9ED6D2",
+                        fontSize: "16px",
+                        paddingBottom: "9px"
+                      }}
+                      onClick={refresh}
+                    >
+                      <FiRefreshCcw /> Calculate!
                   </button>
-                )}
+                  )}
                 <Link to="/">
                   <button
                     className="btn btn-secondary"
@@ -264,7 +276,7 @@ export default function JobDetail({ match, history }) {
                     Back To Home
                   </button>
                 </Link>
-                <Link to={{pathname:`/print/${match.params.id}`, state: { dataReport: data, candidates: candidates}}}>
+                <Link to={{ pathname: `/print/${match.params.id}`, state: { dataReport: data, candidates: candidates } }}>
                   <button
                     className="btn btn-light"
                     style={{
@@ -272,7 +284,7 @@ export default function JobDetail({ match, history }) {
                       color: "black"
                     }}
                   >
-                    <FiPrinter/> Print A Report
+                    <FiPrinter /> Print A Report
                   </button>
                 </Link>
               </div>
