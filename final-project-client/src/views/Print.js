@@ -158,7 +158,7 @@ export default function MyDocument({ match, location }) {
   return (
     <div>
       <PDFViewer style={{ width: '100%', height: '100vh' }}>
-        <Documents data={data} candidates={candidates} />
+        <Documents data={data} candidates={candidates} fileName={`${data.company.name}-${data.title}.pdf`}/>
       </PDFViewer>
       {/* <PDFDownloadLink document={<Documents data={data} candidates={candidates} />} fileName={`${data.company.name}-${data.title}.pdf`}>
         {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now! '+url )}
