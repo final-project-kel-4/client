@@ -53,7 +53,7 @@ export default function JobDetail({ match, history }) {
       setIsRefreshing(true);
       try {
         comparison = await axios.get(
-          `http://104.154.229.98/match/${data.matching}/refresh`,
+          `http://aabf3a42.ngrok.io/match/${data.matching}/refresh`,
           { headers: { authorization: localStorage.getItem("token") } }
         );
         let result = [];
@@ -82,13 +82,13 @@ export default function JobDetail({ match, history }) {
 
   useEffect(() => {
     axios
-      .get(`http://104.154.229.98/job/${match.params.id}`, {
+      .get(`http://aabf3a42.ngrok.io/job/${match.params.id}`, {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(async ({ data }) => {
         setData(data);
         let matching = await axios.get(
-          `http://104.154.229.98/match/${data.matching}`,
+          `http://aabf3a42.ngrok.io/match/${data.matching}`,
           { headers: { authorization: localStorage.getItem("token") } }
         );
 
@@ -121,7 +121,7 @@ export default function JobDetail({ match, history }) {
     }).then(willDelete => {
       if (willDelete) {
         axios
-          .delete(`http://104.154.229.98/job/${match.params.id}`, {
+          .delete(`http://aabf3a42.ngrok.io/job/${match.params.id}`, {
             headers: { authorization: localStorage.getItem("token") }
           })
           .then(() => {
@@ -143,7 +143,7 @@ export default function JobDetail({ match, history }) {
 
   function removeCandidate(id) {
     axios
-      .delete(`http://104.154.229.98/matchItem/${id}`, {
+      .delete(`http://aabf3a42.ngrok.io/matchItem/${id}`, {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(() => {

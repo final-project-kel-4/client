@@ -11,7 +11,7 @@ export default function JobLinkForm(props) {
     if(linkInput){
       setIsLoading(true);
 
-      axios.post(`http://104.154.229.98/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
+      axios.post(`http://aabf3a42.ngrok.io/job`, {linkedin:linkInput}, {headers:{'authorization':localStorage.getItem('token')}})
       .then(({ data })=>{
         setIsLoading(false);
         setLinkInput('')

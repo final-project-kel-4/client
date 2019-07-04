@@ -48,7 +48,7 @@ export default function RegisterForm(props) {
 
     if (name && email && password && company) {
       axios
-        .post(`http://104.154.229.98/user/signup`, { name, email, password, company })
+        .post(`http://aabf3a42.ngrok.io/user/signup`, { name, email, password, company })
         .then(() => {
           swal("Signup success", "Now you may log in", "success");
           reset();
