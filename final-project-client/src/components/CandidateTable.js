@@ -17,7 +17,7 @@ export default function CandidateTable(props) {
   };
 
   async function refreshCandidate(id) {
-    await axios.get(`http://104.154.229.98/candidate/${id}/refresh`, {
+    await axios.get(`http://aabf3a42.ngrok.io/candidate/${id}/refresh`, {
       headers: { authorization: localStorage.getItem("token") }
     });
 

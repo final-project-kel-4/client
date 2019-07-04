@@ -27,7 +27,7 @@ function Home(props) {
   function fetchData() {
     console.log("fetching jobs...");
     axios
-      .get(`http://104.154.229.98/job`, {
+      .get(`http://aabf3a42.ngrok.io/job`, {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(({ data }) => {
