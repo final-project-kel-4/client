@@ -43,7 +43,7 @@ function LoginFormOnly(props) {
     e.preventDefault()
     
     if(email&&password){
-      axios.post(`http://localhost:3000/user/signin`, {email,password})
+      axios.post(`http://104.154.229.98/user/signin`, {email,password})
       .then(({data})=>{
         localStorage.setItem('token', data.token)
         swal('Welcome Back ','','success')

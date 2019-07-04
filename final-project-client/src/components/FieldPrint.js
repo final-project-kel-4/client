@@ -61,12 +61,12 @@ export default function MyDocument() {
 //   const [candidates, setCandidates] = useState([]);
 
 //   useEffect(() => {
-//     axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
+//     axios.get(`http://104.154.229.98/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
 //       .then(async ({ data }) => {
 //         setData(data);
 //         console.log("sukses");
 //         let matching = await axios.get(
-//           `http://localhost:3000/match/${data.matching}`,
+//           `http://104.154.229.98/match/${data.matching}`,
 //           { headers: { authorization: localStorage.getItem("token") } }
 //         );
 //         setCandidates(
@@ -143,12 +143,12 @@ export default function MyDocument() {
 //   const [candidates, setCandidates] = useState([]);
 
 //   useEffect(() => {
-//     axios.get(`http://localhost:3000/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
+//     axios.get(`http://104.154.229.98/job/${match.params.id}`, { headers: { 'authorization': localStorage.getItem('token') } })
 //       .then(async ({ data }) => {
 //         setData(data);
 //         console.log("sukses");
 //         let matching = await axios.get(
-//           `http://localhost:3000/match/${data.matching}`,
+//           `http://104.154.229.98/match/${data.matching}`,
 //           { headers: { authorization: localStorage.getItem("token") } }
 //         );
 //         setCandidates(

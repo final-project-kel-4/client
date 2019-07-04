@@ -20,7 +20,7 @@ export default function CandidateForm(props) {
       setIsSubmiting(true);
       axios
         .post(
-          `http://localhost:3000/job/addCandidate`,
+          `http://104.154.229.98/job/addCandidate`,
           { linkedin: inputCandidate, jobId: props.idJob },
           { headers: { authorization: localStorage.getItem("token") } }
         )

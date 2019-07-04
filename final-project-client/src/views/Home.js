@@ -27,7 +27,7 @@ function Home(props) {
   function fetchData() {
     console.log("fetching jobs...");
     axios
-      .get(`http://localhost:3000/job`, {
+      .get(`http://104.154.229.98/job`, {
         headers: { authorization: localStorage.getItem("token") }
       })
       .then(({ data }) => {
